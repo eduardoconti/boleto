@@ -129,7 +129,8 @@
       "^@presentation/(.*)$": "<rootDir>/../src/presentation/$1",
       "^@domain-core/(.*)$": "<rootDir>/../src/domain-core/$1",
       "^@auth/(.*)$": "<rootDir>/../src/modules/auth/$1",
-      "^@usuario/(.*)$": "<rootDir>/../src/modules/usuario/$1"
+      "^@usuario/(.*)$": "<rootDir>/../src/modules/usuario/$1",
+      "^@boleto/(.*)$": "<rootDir>/../src/modules/boleto/$1"
     }
   },
   "release": {

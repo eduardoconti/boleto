@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import type { RegisterUserUseCaseOutput } from '../../app/use-cases';
-
+import type { RegisterUserUseCaseOutput } from '@usuario/domain/use-cases';
 export class RegisterUserOutput {
   @ApiProperty({
     example: 'b85381d7-174f-4c0a-a2c8-aa93a399965d',

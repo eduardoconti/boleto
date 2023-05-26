@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, MaxLength, MinLength } from 'class-validator';
 
-import type { RegisterUserUseCaseInput } from '../../app/use-cases';
+import type { RegisterUserUseCaseInput } from '@usuario/domain/use-cases';
 
 export class RegisterUserInput {
   @IsString()

@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 
 import type { QueryParams } from '@domain-core/contracts';
+import type { Email } from '@domain-core/value-objects';
 import { DateVO } from '@domain-core/value-objects';
 
 import { PrismaService } from '@infra/database/prisma';
 
-import type { IUserRepository } from '../../domain/contracts/usuario-repository';
-import type { UserEntity, UserProps } from '../../domain/entities';
-import type { Email } from '../../domain/value-objects';
+import type { IUserRepository } from '@usuario/domain/contracts/usuario-repository';
+import type { UserEntity, UserProps } from '@usuario/domain/entities';
+
 import { UserNotFoundException, UserRepositoryException } from '../exceptions';
 import { UserModel } from '../models/user.model';
 

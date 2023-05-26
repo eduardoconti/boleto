@@ -1,24 +1,15 @@
-import type { IUseCase } from '@domain-core/contracts';
+import { Email } from '@domain-core/value-objects/email.value-object';
 
-import type { IUserRepository } from '../../domain/contracts/usuario-repository';
-import { UserEntity } from '../../domain/entities';
-import { Email } from '../../domain/value-objects';
+import type { IUserRepository } from '@usuario/domain/contracts/usuario-repository';
+import { UserEntity } from '@usuario/domain/entities';
+import type {
+  IRegisterUserUseCase,
+  RegisterUserUseCaseInput,
+  RegisterUserUseCaseOutput,
+} from '@usuario/domain/use-cases';
+
 import { UserAlreadyExistsException } from '../exceptions';
 
-export type RegisterUserUseCaseOutput = Omit<
-  RegisterUserUseCaseInput,
-  'senha'
-> & { id: string };
-export interface RegisterUserUseCaseInput {
-  nome: string;
-  email: string;
-  senha: string;
-}
-
-export type IRegisterUserUseCase = IUseCase<
-  RegisterUserUseCaseInput,
-  RegisterUserUseCaseOutput
->;
 export class RegisterUserUseCase implements IRegisterUserUseCase {
   constructor(private readonly userRepository: IUserRepository) {}
   async execute({

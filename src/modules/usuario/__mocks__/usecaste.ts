@@ -1,7 +1,7 @@
 import type {
   RegisterUserUseCaseInput,
   RegisterUserUseCaseOutput,
-} from '@usuario/app/use-cases';
+} from '@usuario/domain/use-cases';
 
 export const mockRegisterUserUseCaseInput: RegisterUserUseCaseInput = {
   email: 'eduardo.conti@gmail.com',

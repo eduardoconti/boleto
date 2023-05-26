@@ -6,10 +6,8 @@ import {
   ApiSuccessResponse,
 } from '@infra/__docs__';
 
-import {
-  IRegisterUserUseCase,
-  RegisterUserUseCase,
-} from '@usuario/app/use-cases';
+import { RegisterUserUseCase } from '@usuario/app/use-cases';
+import { IRegisterUserUseCase } from '@usuario/domain/use-cases';
 
 import { RegisterUserInput } from '../dto';
 import { RegisterUserOutput } from '../dto/register-user.output.dto';

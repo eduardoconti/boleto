@@ -32,6 +32,7 @@ module.exports = {
         groups: [
           'module',
           '/^@app/',
+          '/^@boleto/',
           '/^@domain/',
           '/^@domain-core/',
           '/^@infra/',

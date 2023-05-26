@@ -17,3 +17,23 @@ model user {
   data_inclusao  DateTime @default(now())
   data_alteracao DateTime @updatedAt
 }
+
+enum status_boleto {
+  PENDENTE
+  PAGO
+}
+
+model boleto {
+  id              String        @id
+  id_cobranca     String
+  id_psp          String
+  valor           Int
+  nome_devedor    String
+  data_vencimento DateTime
+  data_pagamento  DateTime?
+  nome_pagador    String?
+  status          status_boleto
+  email           String
+  data_inclusao   DateTime      @default(now())
+  data_alteracao  DateTime      @updatedAt
+}

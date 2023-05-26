@@ -4,9 +4,9 @@ import type {
   ISave,
   IUpdate,
 } from '@domain-core/contracts/repository';
+import type { Email } from '@domain-core/value-objects';
 
 import type { UserEntity, UserProps } from '../entities';
-import type { Email } from '../value-objects';
 
 export interface IUserRepository
   extends ISave<UserEntity>,

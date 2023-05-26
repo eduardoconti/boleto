@@ -1,9 +1,8 @@
-import { DateVO, UUID } from '@domain-core/value-objects';
+import { DateVO, Email, Nome, Senha, UUID } from '@domain-core/value-objects';
 
 import { Model } from '@infra/database/model/base-model';
 
-import { UserEntity } from '../../domain/entities';
-import { Email, Nome, Senha } from '../../domain/value-objects';
+import { UserEntity } from '@usuario/domain/entities';
 
 export class UserModel extends Model {
   nome!: string;

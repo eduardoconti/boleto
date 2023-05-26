@@ -4,11 +4,11 @@ import { Test } from '@nestjs/testing';
 import { mockRegisterUserUseCaseInput } from '@usuario/__mocks__/usecaste';
 import { mockUserEntity } from '@usuario/domain/__mocks__';
 import type { IUserRepository } from '@usuario/domain/contracts/usuario-repository';
+import type { IRegisterUserUseCase } from '@usuario/domain/use-cases';
 import { UserRepository } from '@usuario/infra/repositories';
 import { provideRegisterUserUseCase } from '@usuario/main/dependency-injection';
 
 import { UserAlreadyExistsException } from '../exceptions';
-import type { IRegisterUserUseCase } from './register-user.use-case';
 import { RegisterUserUseCase } from './register-user.use-case';
 
 describe('RegisterUserUseCase', () => {

@@ -46,6 +46,9 @@
       "@auth/*": [
         "src/modules/auth/*"
       ],
+      "@boleto/*": [
+        "src/modules/boleto/*"
+      ],
       "@domain-core/*": [
         "src/domain-core/*"
       ],

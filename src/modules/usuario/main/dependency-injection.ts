@@ -8,8 +8,8 @@ import { UserRepository } from '../infra/repositories';
 
 export const provideRegisterUserUseCase: Provider<RegisterUserUseCase> = {
   provide: RegisterUserUseCase,
-  useFactory: (mongo: IUserRepository) => {
-    return new RegisterUserUseCase(mongo);
+  useFactory: (repository: IUserRepository) => {
+    return new RegisterUserUseCase(repository);
   },
   inject: [UserRepository],
 };

@@ -1,9 +1,9 @@
 import type { IUseCase } from '@domain-core/contracts';
+import { Email, Senha } from '@domain-core/value-objects';
 
 import { UnauthorizedException } from '@infra/exceptions';
 
 import type { IUserRepository } from '@usuario/domain/contracts/usuario-repository';
-import { Email, Senha } from '@usuario/domain/value-objects';
 
 export interface UserAuthUseCaseInput {
   userName: string;

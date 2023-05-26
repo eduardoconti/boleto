@@ -1,7 +1,5 @@
 import { AggregateRoot } from '@domain-core/contracts';
-import { UUID } from '@domain-core/value-objects';
-
-import { Email, Nome, Senha } from '../value-objects';
+import { Email, Nome, Senha, UUID } from '@domain-core/value-objects';
 
 export interface UserProps {
   nome: Nome;

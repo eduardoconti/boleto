@@ -1,7 +1,6 @@
-import { DateVO, UUID } from '@domain-core/value-objects';
+import { DateVO, Email, Nome, Senha, UUID } from '@domain-core/value-objects';
 
 import { UserEntity } from '../entities';
-import { Email, Nome, Senha } from '../value-objects';
 
 export const mockUserEntity = new UserEntity({
   id: new UUID('b85381d7-174f-4c0a-a2c8-aa93a399965d'),
