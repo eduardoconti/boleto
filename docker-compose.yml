@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  boleto-api:
+    container_name: boleto-api
+    restart: on-failure
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - ${PORT}:${PORT}
+    env_file:
+      - .env
+    command: yarn start:dev
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:alpine
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    container_name: postgres
+    volumes:
+      - pg-boleto-api-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    restart: always
+
+volumes:
+  pg-boleto-api-data:
