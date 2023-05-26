@@ -6,12 +6,25 @@ import type {
   IGerarBoletoUseCaseOutput,
 } from '@boleto/domain/use-cases';
 
+import type { IGerarBoletoComPSP } from '../contracts/IGerarBoletoComPSP';
+
 export class GerarBoletoUseCase implements IGerarBoletoUseCase {
-  constructor(private readonly boletoRepository: IBoletoRepository) {}
+  constructor(
+    private readonly boletoRepository: IBoletoRepository,
+    private readonly pspService: IGerarBoletoComPSP,
+  ) {}
   async execute(
     request: IGerarBoletoUseCaseInput,
   ): Promise<IGerarBoletoUseCaseOutput> {
     const boleto = BoletoEntity.create({ ...request });
+
+    const { linhaDigitavel } = await this.pspService.gerarBoleto({
+      dataVencimento: request.dataVencimento,
+      idCobranca: request.idCobranca,
+      nomeDevedor: request.nomeDevedor,
+      valor: request.valor,
+    });
+
     await this.boletoRepository.save(boleto);
 
     return {
@@ -23,6 +36,7 @@ export class GerarBoletoUseCase implements IGerarBoletoUseCase {
       pspId: boleto.pspId,
       valor: boleto.valor.value,
       status: boleto.status,
+      linhaDigitavel,
     };
   }
 }

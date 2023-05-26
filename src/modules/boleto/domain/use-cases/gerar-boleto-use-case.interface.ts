@@ -5,6 +5,7 @@ import type { StatusBoleto } from '../entities';
 export type IGerarBoletoUseCaseOutput = IGerarBoletoUseCaseInput & {
   id: string;
   status: StatusBoleto;
+  linhaDigitavel: string;
 };
 
 export interface IGerarBoletoUseCaseInput {
