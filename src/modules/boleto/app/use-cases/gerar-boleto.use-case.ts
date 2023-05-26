@@ -6,7 +6,7 @@ import type {
   IGerarBoletoUseCaseOutput,
 } from '@boleto/domain/use-cases';
 
-import type { IGerarBoletoComPSP } from '../contracts/IGerarBoletoComPSP';
+import type { IGerarBoletoComPSP } from '../contracts/gerar-boleto-com-psp';
 
 export class GerarBoletoUseCase implements IGerarBoletoUseCase {
   constructor(

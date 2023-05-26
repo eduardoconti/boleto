@@ -44,4 +44,8 @@ export class CsvCobrancaEntity extends Entity<CsvCobrancaProps> {
   marcarComoProcessado(): void {
     this.props.processado = true;
   }
+
+  estaProcessado(): boolean {
+    return this.processado;
+  }
 }

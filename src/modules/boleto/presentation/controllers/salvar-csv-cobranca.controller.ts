@@ -3,6 +3,7 @@ import {
   HttpCode,
   HttpStatus,
   Inject,
+  ParseFilePipe,
   Post,
   UploadedFile,
   UseGuards,
@@ -50,7 +51,9 @@ export class SalvarCsvCobrancaController {
       }),
     }),
   )
-  async handle(@UploadedFile() file: Express.Multer.File): Promise<void> {
+  async handle(
+    @UploadedFile(new ParseFilePipe()) file: Express.Multer.File,
+  ): Promise<void> {
     await this.useCase.execute({ caminho: file.path });
   }
 }

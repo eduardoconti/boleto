@@ -12,6 +12,7 @@ export class MailerService implements IMailService {
     const { from, to, body } = data;
 
     await timeoutDelay(delay);
+
     this.logger.log(
       `sending email ${data.context}: ${JSON.stringify({
         to,

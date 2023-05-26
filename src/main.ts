@@ -1,6 +1,8 @@
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import type { RmqOptions } from '@nestjs/microservices';
+import { Transport } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { PrismaService } from '@infra/database/prisma';
@@ -50,6 +52,21 @@ async function bootstrap(): Promise<void> {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
+  app.connectMicroservice<RmqOptions>({
+    transport: Transport.RMQ,
+    options: {
+      urls: ['amqp://rabbitmq:5672'],
+      queue: 'csv_boleto',
+      prefetchCount: 20,
+      persistent: true,
+      noAck: false,
+      queueOptions: {
+        durable: true,
+      },
+    },
+  });
+
+  await app.startAllMicroservices();
   await app.listen(configService.get('PORT') | DEFAULT_PORT);
 }
 bootstrap();

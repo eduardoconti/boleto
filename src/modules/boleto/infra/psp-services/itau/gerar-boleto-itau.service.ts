@@ -2,7 +2,7 @@ import type {
   GerarBoletoRequest,
   GerarBoletoResponse,
   IGerarBoletoComPSP,
-} from '@boleto/app/contracts/IGerarBoletoComPSP';
+} from '@boleto/app/contracts';
 import { FalhaAoCriarBoletoComItau } from '@boleto/infra/exceptions/failed-to-create-boleto-on-itau.exception';
 
 import { timeoutDelay } from '@infra/utils/timeout';

@@ -2,7 +2,6 @@ import { HttpModule } from '@nestjs/axios';
 import { Logger, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { EventEmitterModule } from '@nestjs/event-emitter';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -17,6 +16,7 @@ import { BaseException } from '@domain-core/exceptions';
 import type { EnvironmentVariables } from '@main/config';
 import { configValidationSchema } from '@main/config';
 
+import { ReadFileCsv } from './csv/csv-reader';
 import { PrismaService } from './database/prisma';
 import { HttpService } from './http-service';
 import { provideMailerService } from './infra.provider';
@@ -31,24 +31,7 @@ import { JwtStrategy } from './strategy/auth';
       isGlobal: true,
     }),
     HttpModule,
-    EventEmitterModule.forRoot({
-      // set this to `true` to use wildcards
-      wildcard: false,
-      // the delimiter used to segment namespaces
-      delimiter: '.',
-      // set this to `true` if you want to emit the newListener event
-      newListener: false,
-      // set this to `true` if you want to emit the removeListener event
-      removeListener: false,
-      // the maximum amount of listeners that can be assigned to an event
-      maxListeners: 10,
-      // show event name in memory leak message when more than maximum amount of listeners is assigned
-      verboseMemoryLeak: false,
-      // disable throwing uncaughtException if an error event is emitted and it has no listeners
-      ignoreErrors: false,
-    }),
     ScheduleModule.forRoot(),
-    //forwardRef(() => AppModule),
     SentryModule.forRootAsync({
       inject: [ConfigService],
       imports: [],
@@ -100,6 +83,7 @@ import { JwtStrategy } from './strategy/auth';
     },
     JwtStrategy,
     provideMailerService,
+    ReadFileCsv,
   ],
   exports: [
     HttpService,
@@ -108,6 +92,7 @@ import { JwtStrategy } from './strategy/auth';
     SentryMonitorError,
     JwtModule,
     provideMailerService,
+    ReadFileCsv,
   ],
 })
 export class InfraModule {}
