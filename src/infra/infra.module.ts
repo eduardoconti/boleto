@@ -19,6 +19,7 @@ import { configValidationSchema } from '@main/config';
 
 import { PrismaService } from './database/prisma';
 import { HttpService } from './http-service';
+import { provideMailerService } from './infra.provider';
 import { SentryMonitorError } from './sentry';
 import { JwtStrategy } from './strategy/auth';
 
@@ -98,7 +99,15 @@ import { JwtStrategy } from './strategy/auth';
       useFactory: (): SentryInterceptor => new SentryInterceptor(),
     },
     JwtStrategy,
+    provideMailerService,
   ],
-  exports: [HttpService, Logger, PrismaService, SentryMonitorError, JwtModule],
+  exports: [
+    HttpService,
+    Logger,
+    PrismaService,
+    SentryMonitorError,
+    JwtModule,
+    provideMailerService,
+  ],
 })
 export class InfraModule {}
