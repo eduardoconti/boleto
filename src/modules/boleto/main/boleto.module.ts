@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 
-import { GerarBoletoController } from '@boleto/presentation/controllers';
+import {
+  GerarBoletoCSVController,
+  GerarBoletoController,
+} from '@boleto/presentation/controllers';
 
 import { InfraModule } from '@infra/infra.module';
 
@@ -12,7 +15,7 @@ import {
 
 @Module({
   imports: [InfraModule],
-  controllers: [GerarBoletoController],
+  controllers: [GerarBoletoController, GerarBoletoCSVController],
   providers: [
     provideGerarBoletoUseCase,
     provideBoletoRepository,

@@ -26,26 +26,26 @@ import { GerarBoletoOutput } from '../dto/gerar-boleto-output.dto';
 export class GerarBoletoController {
   constructor(
     @Inject(GerarBoletoUseCase)
-    private readonly registerUserUseCase: IGerarBoletoUseCase,
+    private readonly geararBoletoUseCase: IGerarBoletoUseCase,
   ) {}
 
   @Post()
   @ApiOperation({
-    summary: 'Registra novo usuário',
-    description: 'Rota para registrar um novo usuário',
+    summary: 'Gerar um boleto',
+    description: 'Rota para gerar um boleto',
   })
   @ApiSuccessResponse({
     model: GerarBoletoOutput,
     statusCode: HttpStatus.CREATED,
   })
   @ApiInternalServerErrorResponse({
-    title: 'UserRepositoryException',
+    title: 'BoletoRepositoryException',
     detail: 'database error',
   })
   @ApiBearerAuth()
   async handle(@Body() data: GerarBoletoInput): Promise<GerarBoletoOutput> {
     const { id, linhaDigitavel, valor, dataVencimento, nomeDevedor } =
-      await this.registerUserUseCase.execute(
+      await this.geararBoletoUseCase.execute(
         GerarBoletoInput.toUseCaseInput(data),
       );
     return {
