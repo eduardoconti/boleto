@@ -37,3 +37,11 @@ model boleto {
   data_inclusao   DateTime      @default(now())
   data_alteracao  DateTime      @updatedAt
 }
+
+model boleto_csv {
+  id             String   @id
+  caminho        String
+  processado     Boolean
+  data_inclusao  DateTime @default(now())
+  data_alteracao DateTime @updatedAt
+}

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
-import { BoletoEntity } from '@boleto/domain/entities';
+import { BoletoEntity, CsvCobrancaEntity } from '@boleto/domain/entities';
 
 import { Amount, DateVO, Email, Nome, UUID } from '@domain-core/value-objects';
 
@@ -33,5 +33,15 @@ export const mockBoletoEntityPendente: BoletoEntity = new BoletoEntity({
     idCobranca: '1',
     pspId: '101',
     valor: new Amount(1000),
+  },
+});
+
+export const mockCsvCobrancaEntity: CsvCobrancaEntity = new CsvCobrancaEntity({
+  id: new UUID('b85381d7-174f-4c0a-a2c8-aa93a399965d'),
+  dataInclusao: new DateVO(new Date()),
+  dataAlteracao: new DateVO(new Date()),
+  props: {
+    caminho: 'cobranca-15f6a357-1baa-4a3c-b1c8-b434eb635ded',
+    processado: false,
   },
 });
