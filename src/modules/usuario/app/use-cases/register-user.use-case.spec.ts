@@ -1,8 +1,8 @@
 import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
 
-import { mockRegisterUserUseCaseInput } from '@usuario/__mocks__/usecaste';
-import { mockUserEntity } from '@usuario/domain/__mocks__';
+import { mockUserEntity } from '@usuario/__mocks__/entity';
+import { mockRegisterUserUseCaseInput } from '@usuario/__mocks__/usecases';
 import type { IUserRepository } from '@usuario/domain/contracts/usuario-repository';
 import type { IRegisterUserUseCase } from '@usuario/domain/use-cases';
 import { UserRepository } from '@usuario/infra/repositories';

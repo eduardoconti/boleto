@@ -117,7 +117,8 @@
       "!<rootDir>/main/**",
       "!<rootDir>/infra/strategy/**",
       "!<rootDir>/infra/guard/**",
-      "!<rootDir>/infra/decorators/**"
+      "!<rootDir>/infra/decorators/**",
+      "!<rootDir>/**/dependency-injection.ts"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",

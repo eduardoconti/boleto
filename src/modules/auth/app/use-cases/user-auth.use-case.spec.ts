@@ -5,7 +5,7 @@ import { Test } from '@nestjs/testing';
 
 import { UnauthorizedException } from '@infra/exceptions';
 
-import { mockUserEntity } from '@usuario/domain/__mocks__';
+import { mockUserEntity } from '@usuario/__mocks__/entity';
 import type { IUserRepository } from '@usuario/domain/contracts/usuario-repository';
 import { UserRepository } from '@usuario/infra/repositories';
 

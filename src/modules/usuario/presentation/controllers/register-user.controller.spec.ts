@@ -5,7 +5,7 @@ import {
   mockRegisterUserInput,
   mockRegisterUserInputRequiredFields,
 } from '@usuario/__mocks__/dto';
-import { mockRegisterUserUseCaseOutput } from '@usuario/__mocks__/usecaste';
+import { mockRegisterUserUseCaseOutput } from '@usuario/__mocks__/usecases';
 import { RegisterUserUseCase } from '@usuario/app/use-cases';
 import type { IRegisterUserUseCase } from '@usuario/domain/use-cases';
 

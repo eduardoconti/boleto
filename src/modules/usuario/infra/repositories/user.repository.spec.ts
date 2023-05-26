@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing';
 
 import { PrismaService } from '@infra/database/prisma';
 
-import { mockUserEntity } from '@usuario/domain/__mocks__';
+import { mockUserEntity } from '@usuario/__mocks__/entity';
 import type { IUserRepository } from '@usuario/domain/contracts/usuario-repository';
 import { provideUserRepository } from '@usuario/main/dependency-injection';
 
