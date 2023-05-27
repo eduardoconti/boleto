@@ -66,6 +66,20 @@ async function bootstrap(): Promise<void> {
     },
   });
 
+  app.connectMicroservice<RmqOptions>({
+    transport: Transport.RMQ,
+    options: {
+      urls: ['amqp://rabbitmq:5672'],
+      queue: 'webhook',
+      prefetchCount: 20,
+      persistent: true,
+      noAck: false,
+      queueOptions: {
+        durable: true,
+      },
+    },
+  });
+
   await app.startAllMicroservices();
   await app.listen(configService.get('PORT') | DEFAULT_PORT);
 }

@@ -116,6 +116,7 @@ export class BoletoEntity extends Entity<BoletoProps> {
       this.props.nomePagador = new Nome(nomePagador);
       this.props.dataPagamento = DateVO.now();
       this.props.valorPago = new Amount(valorPago);
+      this.props.status = 'PAGO';
     }
   }
 }

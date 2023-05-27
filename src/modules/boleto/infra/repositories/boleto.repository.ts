@@ -40,6 +40,7 @@ export class BoletoRepository implements IBoletoRepository {
         where: {
           id: params.id?.value,
           email: params.email?.value,
+          id_cobranca: params.idCobranca,
         },
       })
       .catch((e) => {
@@ -56,11 +57,15 @@ export class BoletoRepository implements IBoletoRepository {
   }
 
   async update(entity: BoletoEntity): Promise<BoletoEntity> {
-    const { id, valor } = BoletoModel.fromEntity(entity);
+    const { id, valor, nome_pagador, data_pagamento, status } =
+      BoletoModel.fromEntity(entity);
     try {
       const saved = await this.prismaService.boleto.update({
         data: {
           valor,
+          nome_pagador,
+          data_pagamento,
+          status,
           data_alteracao: DateVO.now().value,
         },
         where: { id },

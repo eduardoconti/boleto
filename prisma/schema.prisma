@@ -45,3 +45,13 @@ model boleto_csv {
   data_inclusao  DateTime @default(now())
   data_alteracao DateTime @updatedAt
 }
+
+model webhook {
+  id             String   @id
+  payload        Json
+  valor_pago     Int
+  id_cobranca    String
+  data_pagamento DateTime
+  data_inclusao  DateTime @default(now())
+  data_alteracao DateTime @updatedAt
+}
