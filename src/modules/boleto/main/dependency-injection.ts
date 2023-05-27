@@ -1,43 +1,18 @@
 import type { Provider } from '@nestjs/common';
 
-import type { IMailService } from '@app/contracts/mail-service';
-
-import type {
-  ICsvCobrancaReader,
-  IGerarBoletoComPSP,
-  IPublisherWebhook,
-} from '@boleto/app/contracts';
-import type { IPublisherCsv } from '@boleto/app/contracts/publisher-csv';
-import { GerarBoletoCsvConsumer } from '@boleto/app/services/gerar-boleto-csv.consumer';
+import type { IPublisherWebhook } from '@boleto/app/contracts';
 import { WebhookConsumer } from '@boleto/app/services/webhook.consumer';
-import { GerarBoletoUseCase } from '@boleto/app/use-cases';
 import { ReceberWebookUseCase } from '@boleto/app/use-cases/receber-webhook.use-case';
-import { SalvarCsvCobrancaUseCase } from '@boleto/app/use-cases/salvar-csv-cobranca.use-case';
 import type { IWebhookRepository } from '@boleto/domain/contracts';
-import type { IBoletoRepository } from '@boleto/domain/contracts/boleto-repository';
-import type { ICsvCobrancaRepository } from '@boleto/domain/contracts/csv-cobranca.repository';
-import type { IGerarBoletoUseCase } from '@boleto/domain/use-cases';
 import { GerarBoletoItauService } from '@boleto/infra/psp-services/itau/gerar-boleto-itau.service';
 import { WebhookPublisher } from '@boleto/infra/publisher';
-import { GerarBoletoCsvPublisher } from '@boleto/infra/publisher/gerar-boleto-csv.publisher';
 import { BoletoRepository } from '@boleto/infra/repositories';
-import { CsvCobrancaRepository } from '@boleto/infra/repositories/csv-cobranca.repository';
 import { WebhookRepository } from '@boleto/infra/repositories/webhook.repository';
 
-import { ReadFileCsv } from '@infra/csv/csv-reader';
-import { PrismaService } from '@infra/database/prisma';
-import { MailerService } from '@infra/mailer';
+import type { ICobrancaRepository } from '@cobranca/domain/contracts';
+import { CobrancaRepository } from '@cobranca/infra/repositories';
 
-export const provideGerarBoletoUseCase: Provider<GerarBoletoUseCase> = {
-  provide: GerarBoletoUseCase,
-  useFactory: (
-    repository: IBoletoRepository,
-    pspService: IGerarBoletoComPSP,
-  ) => {
-    return new GerarBoletoUseCase(repository, pspService);
-  },
-  inject: [BoletoRepository, GerarBoletoItauService],
-};
+import { PrismaService } from '@infra/database/prisma';
 
 export const provideBoletoRepository: Provider<BoletoRepository> = {
   provide: BoletoRepository,
@@ -54,49 +29,6 @@ export const provideGerarBoletoItauService: Provider<GerarBoletoItauService> = {
   },
 };
 
-export const provideSalvarCsvCobrancaUseCase: Provider<SalvarCsvCobrancaUseCase> =
-  {
-    provide: SalvarCsvCobrancaUseCase,
-    useFactory: (
-      repository: ICsvCobrancaRepository,
-      publisher: IPublisherCsv,
-    ) => {
-      return new SalvarCsvCobrancaUseCase(repository, publisher);
-    },
-    inject: [CsvCobrancaRepository, GerarBoletoCsvPublisher],
-  };
-
-export const provideCsvCobrancaRepository: Provider<CsvCobrancaRepository> = {
-  provide: CsvCobrancaRepository,
-  useFactory: (prismaService: PrismaService) => {
-    return new CsvCobrancaRepository(prismaService);
-  },
-  inject: [PrismaService],
-};
-
-export const provideGerarBoletoCsvConsumer: Provider<GerarBoletoCsvConsumer> = {
-  provide: GerarBoletoCsvConsumer,
-  useFactory: (
-    prismaService: IGerarBoletoUseCase,
-    mailService: IMailService,
-    csvRepository: ICsvCobrancaRepository,
-    csvReader: ICsvCobrancaReader,
-  ) => {
-    return new GerarBoletoCsvConsumer(
-      prismaService,
-      mailService,
-      csvRepository,
-      csvReader,
-    );
-  },
-  inject: [
-    GerarBoletoUseCase,
-    MailerService,
-    CsvCobrancaRepository,
-    ReadFileCsv,
-  ],
-};
-
 export const provideWebhookRepository: Provider<WebhookRepository> = {
   provide: WebhookRepository,
   useFactory: (prismaService: PrismaService) => {
@@ -107,10 +39,10 @@ export const provideWebhookRepository: Provider<WebhookRepository> = {
 
 export const provideWebhookConsumer: Provider<WebhookConsumer> = {
   provide: WebhookConsumer,
-  useFactory: (boletoRepository: IBoletoRepository) => {
-    return new WebhookConsumer(boletoRepository);
+  useFactory: (cobrancaRepository: ICobrancaRepository) => {
+    return new WebhookConsumer(cobrancaRepository);
   },
-  inject: [BoletoRepository],
+  inject: [CobrancaRepository],
 };
 
 export const provideReceberWebookUseCase: Provider<ReceberWebookUseCase> = {

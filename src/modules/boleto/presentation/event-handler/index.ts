@@ -1,1 +1,1 @@
-export * from './processar-csv-boleto.event-handler';
+export * from './processar-webhook.event-handler';

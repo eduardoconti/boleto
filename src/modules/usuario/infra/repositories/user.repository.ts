@@ -33,7 +33,7 @@ export class UserRepository implements IUserRepository {
     const model = await this.prismaService.user
       .findFirst({
         where: {
-          id: params.id?.value,
+          id: params.id?.value as string,
           email: params.email?.value,
         },
       })

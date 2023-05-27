@@ -38,9 +38,8 @@ export class BoletoRepository implements IBoletoRepository {
     const model = await this.prismaService.boleto
       .findFirst({
         where: {
-          id: params.id?.value,
-          email: params.email?.value,
-          id_cobranca: params.idCobranca,
+          id: params.id?.value as string,
+          id_cobranca: params.idCobranca?.value,
         },
       })
       .catch((e) => {

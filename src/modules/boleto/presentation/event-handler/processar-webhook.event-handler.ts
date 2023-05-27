@@ -19,7 +19,8 @@ export class ProcessarWebhookEventHandler {
   ) {}
   @EventPattern('PROCESSAR_WEBHOOK')
   async handle(
-    @Payload() { idCobranca, valorPago, nomePagador }: ProcessarWebhookData,
+    @Payload()
+    { idCobranca, valorPago, nomePagador, dataPagamento }: ProcessarWebhookData,
     @Ctx() context: RmqContext,
   ): Promise<void> {
     const channel = context.getChannelRef();
@@ -29,6 +30,7 @@ export class ProcessarWebhookEventHandler {
         idCobranca,
         valorPago,
         nomePagador,
+        dataPagamento,
       });
     } catch (error) {
       console.log(error);

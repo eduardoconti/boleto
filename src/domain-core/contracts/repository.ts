@@ -1,6 +1,6 @@
 import type { ID } from '@domain-core/value-objects';
 
-import type { BaseEntityProps } from './entity';
+import type { BaseEntityProps, UniqueEntityID } from './entity';
 
 type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>;
@@ -31,7 +31,7 @@ export interface IFindOne<Entity, EntityProps> {
 }
 
 export interface IFindOneById<Entity> {
-  findOneById(id: ID): Promise<Entity>;
+  findOneById(id: ID<UniqueEntityID>): Promise<Entity>;
 }
 
 export interface IFindMany<Entity, EntityProps> {

@@ -21,6 +21,10 @@ type CreateUserEntity = Pick<UserPrimitivesProps, 'nome' | 'email' | 'senha'>;
 export class UserEntity extends AggregateRoot<UserProps> {
   protected readonly _id!: UUID;
 
+  get id(): UUID {
+    return this._id;
+  }
+
   static async create({
     nome,
     email,
@@ -39,19 +43,14 @@ export class UserEntity extends AggregateRoot<UserProps> {
     return entity;
   }
 
-  static toPrimitives({
-    id,
-    props,
-    dataInclusao,
-    dataAlteracao,
-  }: UserEntity): UserPrimitivesProps {
+  static toPrimitives(entity: UserEntity): UserPrimitivesProps {
     return {
-      id: id.value,
-      nome: props.nome.value,
-      email: props.email.value,
-      senha: props.senha.value,
-      dataInclusao: dataInclusao.value,
-      dataAlteracao: dataAlteracao.value,
+      id: entity.id.value,
+      nome: entity.props.nome.value,
+      email: entity.props.email.value,
+      senha: entity.props.senha.value,
+      dataInclusao: entity.dataInclusao.value,
+      dataAlteracao: entity.dataAlteracao.value,
     };
   }
 }

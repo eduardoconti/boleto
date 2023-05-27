@@ -19,6 +19,7 @@ export class ReceberWebookUseCase implements IReceberWebhookUseCase {
       idCobranca: webhook.idCobranca,
       valorPago: webhook.valorPago.value,
       nomePagador: request.nomePagador,
+      dataPagamento: request.dataPagamento,
     });
   }
 }
