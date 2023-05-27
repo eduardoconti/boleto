@@ -1,10 +1,9 @@
 import type { Provider } from '@nestjs/common';
-import { Logger } from '@nestjs/common';
-
-import type { ILogger } from '@domain-core/contracts';
 
 import { PrismaService } from './database/prisma';
 import { SqlManager } from './database/query';
+import type { IHttpService } from './http-service';
+import { HttpService } from './http-service';
 import { MailerService } from './mailer';
 
 export const provideSqlManager: Provider<SqlManager> = {
@@ -17,8 +16,8 @@ export const provideSqlManager: Provider<SqlManager> = {
 
 export const provideMailerService: Provider<MailerService> = {
   provide: MailerService,
-  useFactory: (logger: ILogger) => {
-    return new MailerService(logger);
+  useFactory: (httpService: IHttpService) => {
+    return new MailerService(httpService);
   },
-  inject: [Logger],
+  inject: [HttpService],
 };
