@@ -1,4 +1,4 @@
-import type { DomainEvent } from './domain-event';
+import type { DomainEvent } from '@domain-core/contracts';
 
 export interface IEventEmitter {
   emitAsync(key: string, data: DomainEvent): Promise<any>;
