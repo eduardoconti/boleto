@@ -2,13 +2,12 @@ import { Inject } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { catchError, throwError } from 'rxjs';
 
-import type { IPublisher } from '@app/contracts/publisher';
-
 import type { ProcessarCsvData } from '@boleto/app/contracts';
+import type { IPublisherCsv } from '@boleto/app/contracts/publisher-csv';
 
-export class GerarBoletoCsvPublisher implements IPublisher<ProcessarCsvData> {
+export class GerarBoletoCsvPublisher implements IPublisherCsv {
   constructor(
-    @Inject('MATH_SERVICE')
+    @Inject('publisher_csv_boleto')
     private readonly csvQueueService: ClientProxy,
   ) {}
 

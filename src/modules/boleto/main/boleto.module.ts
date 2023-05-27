@@ -24,7 +24,7 @@ import {
     InfraModule,
     ClientsModule.register([
       {
-        name: 'MATH_SERVICE',
+        name: 'publisher_csv_boleto',
         transport: Transport.RMQ,
         options: {
           urls: ['amqp://rabbitmq:5672'],
