@@ -132,4 +132,8 @@ export class CobrancaEntity extends Entity<CobrancaProps> {
   addBoleto(boleto: BoletoEntity): void {
     this.props.boleto = boleto;
   }
+
+  marcarComoFalhaAoGerarBoleto(): void {
+    this.props.status = 'FALHA_GERAR_BOLETO';
+  }
 }

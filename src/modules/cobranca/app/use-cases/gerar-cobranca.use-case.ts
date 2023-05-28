@@ -31,7 +31,9 @@ export class GerarCobrancaUseCase implements IGerarCobrancaUseCase {
         nomeDevedor: request.nomeDevedor,
         valor: request.valor,
       })
-      .catch((e) => {
+      .catch(async (e) => {
+        cobrancaSaved.marcarComoFalhaAoGerarBoleto();
+        await this.cobrancaRepository.update(cobrancaSaved);
         throw e;
       });
 
