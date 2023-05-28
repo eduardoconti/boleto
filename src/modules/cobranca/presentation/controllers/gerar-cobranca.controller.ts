@@ -19,7 +19,7 @@ import { JwtAuthGuard } from '@infra/guard';
 
 import { GerarCobrancaInput, GerarCobrancaOutput } from '../dto';
 
-@ApiTags('cobranca')
+@ApiTags('cobrança')
 @Controller('cobranca')
 @UseGuards(JwtAuthGuard)
 export class GerarCobrancaController {

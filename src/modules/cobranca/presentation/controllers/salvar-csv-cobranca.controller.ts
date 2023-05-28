@@ -26,7 +26,7 @@ import { UUID } from '@domain-core/value-objects';
 import { ApiInternalServerErrorResponse } from '@infra/__docs__';
 import { JwtAuthGuard } from '@infra/guard';
 
-@ApiTags('cobranca')
+@ApiTags('cobrança')
 @Controller('cobranca')
 @UseGuards(JwtAuthGuard)
 export class SalvarCsvCobrancaController {

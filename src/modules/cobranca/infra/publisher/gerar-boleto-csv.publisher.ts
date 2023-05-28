@@ -9,7 +9,7 @@ import type {
 
 export class GerarCobrancaPublisher implements IPublisherCsvCobranca {
   constructor(
-    @Inject('publisher_csv_boleto')
+    @Inject('publisher_csv_cobranca')
     private readonly csvQueueService: ClientProxy,
   ) {}
 

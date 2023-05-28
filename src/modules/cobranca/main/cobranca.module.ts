@@ -1,5 +1,4 @@
 import { Module, forwardRef } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 
 import { BoletoModule } from '@boleto/main/boleto.module';
 
@@ -12,6 +11,7 @@ import { InfraModule } from '@infra/infra.module';
 
 import {
   provideCobrancaRepository,
+  provideCsvCobrancaClientProxy,
   provideCsvCobrancaRepository,
   provideGerarCobrancaConsumer,
   provideGerarCobrancaUseCase,
@@ -19,26 +19,7 @@ import {
 } from './dependency-injection';
 
 @Module({
-  imports: [
-    InfraModule,
-    forwardRef(() => BoletoModule),
-    ClientsModule.register([
-      {
-        name: 'publisher_csv_boleto',
-        transport: Transport.RMQ,
-        options: {
-          urls: ['amqp://rabbitmq:5672'],
-          queue: 'csv_boleto',
-          prefetchCount: 20,
-          persistent: true,
-          noAck: false,
-          queueOptions: {
-            durable: true,
-          },
-        },
-      },
-    ]),
-  ],
+  imports: [InfraModule, forwardRef(() => BoletoModule)],
   controllers: [
     GerarCobrancaController,
     SalvarCsvCobrancaController,
@@ -51,6 +32,7 @@ import {
     provideCsvCobrancaRepository,
     GerarCobrancaPublisher,
     provideGerarCobrancaConsumer,
+    provideCsvCobrancaClientProxy,
   ],
   exports: [
     provideGerarCobrancaUseCase,

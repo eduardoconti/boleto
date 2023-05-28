@@ -1,5 +1,4 @@
 import { Module, forwardRef } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 
 import { WebhookPublisher } from '@boleto/infra/publisher';
 import { WebhookBoletoController } from '@boleto/presentation/controllers';
@@ -13,31 +12,13 @@ import {
   provideBoletoRepository,
   provideGerarBoletoItauService,
   provideReceberWebookUseCase,
+  provideWebhookClientProxy,
   provideWebhookConsumer,
   provideWebhookRepository,
 } from './dependency-injection';
 
 @Module({
-  imports: [
-    InfraModule,
-    forwardRef(() => CobrancaModule),
-    ClientsModule.register([
-      {
-        name: 'publisher_webhook',
-        transport: Transport.RMQ,
-        options: {
-          urls: ['amqp://rabbitmq:5672'],
-          queue: 'webhook',
-          prefetchCount: 20,
-          persistent: true,
-          noAck: false,
-          queueOptions: {
-            durable: true,
-          },
-        },
-      },
-    ]),
-  ],
+  imports: [InfraModule, forwardRef(() => CobrancaModule)],
   controllers: [ProcessarWebhookEventHandler, WebhookBoletoController],
   providers: [
     provideBoletoRepository,
@@ -46,6 +27,7 @@ import {
     provideWebhookRepository,
     provideWebhookConsumer,
     provideReceberWebookUseCase,
+    provideWebhookClientProxy,
   ],
   exports: [
     provideBoletoRepository,

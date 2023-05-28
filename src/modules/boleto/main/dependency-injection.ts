@@ -1,4 +1,7 @@
 import type { Provider } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import type { ClientProxy } from '@nestjs/microservices';
+import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 
 import type { IPublisherWebhook } from '@boleto/app/contracts';
 import { WebhookConsumer } from '@boleto/app/services/webhook.consumer';
@@ -13,6 +16,9 @@ import type { ICobrancaRepository } from '@cobranca/domain/contracts';
 import { CobrancaRepository } from '@cobranca/infra/repositories';
 
 import { PrismaService } from '@infra/database/prisma';
+import { rabbitmqDefaultOptions } from '@infra/rabbitmq';
+
+import type { EnvironmentVariables } from '@main/config';
 
 export const provideBoletoRepository: Provider<BoletoRepository> = {
   provide: BoletoRepository,
@@ -54,4 +60,21 @@ export const provideReceberWebookUseCase: Provider<ReceberWebookUseCase> = {
     return new ReceberWebookUseCase(webhookRepository, publisher);
   },
   inject: [WebhookRepository, WebhookPublisher],
+};
+
+export const provideWebhookClientProxy: Provider<ClientProxy> = {
+  provide: 'publisher_webhook',
+  useFactory: (
+    configService: ConfigService<EnvironmentVariables>,
+  ): ClientProxy => {
+    return ClientProxyFactory.create({
+      transport: Transport.RMQ,
+      options: {
+        urls: [configService.getOrThrow('RABBITMQ_URL')],
+        queue: 'webhook',
+        ...rabbitmqDefaultOptions.options,
+      },
+    });
+  },
+  inject: [ConfigService],
 };

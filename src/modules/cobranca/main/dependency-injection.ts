@@ -1,4 +1,7 @@
 import type { Provider } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import type { ClientProxy } from '@nestjs/microservices';
+import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 
 import type { IMailService } from '@app/contracts/mail-service';
 
@@ -28,6 +31,9 @@ import {
 import { ReadFileCsv } from '@infra/csv/csv-reader';
 import { PrismaService } from '@infra/database/prisma';
 import { MailerService } from '@infra/mailer';
+import { rabbitmqDefaultOptions } from '@infra/rabbitmq';
+
+import type { EnvironmentVariables } from '@main/config';
 
 export const provideCobrancaRepository: Provider<CobrancaRepository> = {
   provide: CobrancaRepository,
@@ -87,4 +93,21 @@ export const provideGerarCobrancaConsumer: Provider<GerarCobrancaConsumer> = {
     );
   },
   inject: [GerarCobrancaUseCase, CsvCobrancaRepository, ReadFileCsv],
+};
+
+export const provideCsvCobrancaClientProxy: Provider<ClientProxy> = {
+  provide: 'publisher_csv_cobranca',
+  useFactory: (
+    configService: ConfigService<EnvironmentVariables>,
+  ): ClientProxy => {
+    return ClientProxyFactory.create({
+      transport: Transport.RMQ,
+      options: {
+        urls: [configService.getOrThrow('RABBITMQ_URL')],
+        queue: 'csv_cobranca',
+        ...rabbitmqDefaultOptions.options,
+      },
+    });
+  },
+  inject: [ConfigService],
 };

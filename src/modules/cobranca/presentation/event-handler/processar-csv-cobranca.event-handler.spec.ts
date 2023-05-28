@@ -14,7 +14,7 @@ import { ProcessarCsvCobrancaEventHandler } from './processar-csv-cobranca.event
 const ctx = {
   getMessage: () => 'true',
   getChannelRef: () => {
-    return { ack: () => true };
+    return { ack: (): boolean => true };
   },
 } as unknown as RmqContext;
 describe('ProcessarCsvCobrancaEventHandler', () => {
