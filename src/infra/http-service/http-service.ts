@@ -23,7 +23,7 @@ export class HttpService implements IHttpService {
     private readonly nestLogger: Logger,
   ) {}
   async post<Response>(props: PostProps): Promise<Response> {
-    this.nestLogger.log(JSON.stringify(props), 'EXTERNAL API REQUEST');
+    this.nestLogger.log(JSON.stringify(props), 'External api request');
     const startedAt = DateVO.now().value.getTime();
     try {
       const { data } = await this.httpService.axiosRef.post<Response>(
@@ -35,16 +35,16 @@ export class HttpService implements IHttpService {
         },
       );
 
-      this.nestLogger.log(JSON.stringify(data), 'EXTERNAL API RESPONSE');
+      this.nestLogger.log(JSON.stringify(data), 'External api response');
       return data;
     } catch (error) {
-      this.nestLogger.error(JSON.stringify(error), 'EXTERNAL API ERROR');
+      this.nestLogger.error(JSON.stringify(error), 'External api error');
       throw error;
     } finally {
       const requestTime = DateVO.now().value.getTime() - startedAt;
       this.nestLogger.log(
         JSON.stringify({ url: props.url, requestTime }),
-        'EXTERNAL API REQUEST',
+        'External api request time',
       );
     }
   }

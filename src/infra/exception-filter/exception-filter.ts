@@ -1,15 +1,20 @@
 import type {
   ArgumentsHost,
   ExceptionFilter as NestExceptionFilter,
-  Logger,
 } from '@nestjs/common';
+import { Logger, Inject } from '@nestjs/common';
 import type { Response } from 'express';
+
+import { ILogger } from '@app/contracts/logger';
 
 import type { AplicationProblem } from '../aplication-problem';
 import { send } from '../aplication-problem';
 
 export abstract class ExceptionFilter implements NestExceptionFilter {
-  constructor(private readonly logger: Logger) {}
+  constructor(
+    @Inject(Logger)
+    private readonly logger: ILogger,
+  ) {}
 
   catch(exception: Error, host: ArgumentsHost): void {
     if (host.getType() === 'http') {
@@ -22,7 +27,7 @@ export abstract class ExceptionFilter implements NestExceptionFilter {
           ...aplicationProblem,
           stack: exception.stack,
         },
-        'CONTROLLER',
+        'Controller',
       );
 
       return send(response, aplicationProblem);

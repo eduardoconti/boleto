@@ -5,17 +5,23 @@
 import { Controller, Inject } from '@nestjs/common';
 import { Ctx, EventPattern, Payload, RmqContext } from '@nestjs/microservices';
 
+import { IMonitorError } from '@app/contracts';
+
 import {
   IProcessarCsvCobranca,
   ProcessarCsvCobrancaData,
 } from '@cobranca/app/contracts';
 import { GerarCobrancaConsumer } from '@cobranca/app/services/gerar-cobranca.consumer';
 
+import { SentryMonitorError } from '@infra/sentry';
+
 @Controller()
 export class ProcessarCsvCobrancaEventHandler {
   constructor(
     @Inject(GerarCobrancaConsumer)
     private readonly processarCsvConsumer: IProcessarCsvCobranca,
+    @Inject(SentryMonitorError)
+    private readonly monitorErro: IMonitorError,
   ) {}
   @EventPattern('PROCESSAR_CSV')
   async handle(
@@ -29,7 +35,7 @@ export class ProcessarCsvCobrancaEventHandler {
         idCsvCobranca,
       });
     } catch (error) {
-      console.log(error);
+      this.monitorErro.capture(error);
     }
     channel.ack(originalMsg);
   }
