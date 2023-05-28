@@ -1,10 +1,10 @@
+import { Logger } from '@nestjs/common';
 import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
 
+import type { ILogger } from '@app/contracts/logger';
 import type { IMailService } from '@app/contracts/mail-service';
 
-import type { IHttpService } from '@infra/http-service';
-import { HttpService } from '@infra/http-service';
 import { provideMailerService } from '@infra/infra.provider';
 
 import { MailerService } from './mailer-service';
@@ -17,7 +17,7 @@ const makeFakeBody = {
   to: 'fakeTo@gmail.com',
 };
 describe('MailerService', () => {
-  let httpService: IHttpService;
+  let httpService: ILogger;
   let mailerService: IMailService;
 
   beforeEach(async () => {
@@ -25,15 +25,15 @@ describe('MailerService', () => {
       providers: [
         provideMailerService,
         {
-          provide: HttpService,
+          provide: Logger,
           useValue: {
-            post: jest.fn(),
+            log: jest.fn(),
           },
         },
       ],
     }).compile();
 
-    httpService = app.get<IHttpService>(HttpService);
+    httpService = app.get<ILogger>(Logger);
     mailerService = app.get<IMailService>(MailerService);
   });
   afterEach(() => {
@@ -41,8 +41,8 @@ describe('MailerService', () => {
   });
 
   it('should be send mail', async () => {
-    jest.spyOn(httpService, 'post').mockResolvedValue(undefined);
+    jest.spyOn(httpService, 'log').mockImplementation();
     await mailerService.send(makeFakeBody);
-    expect(httpService.post).toBeCalled();
+    expect(httpService.log).toBeCalled();
   });
 });

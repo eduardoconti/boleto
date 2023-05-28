@@ -48,13 +48,15 @@ export class GerarCobrancaUseCase implements IGerarCobrancaUseCase {
 
     await this.cobrancaRepository.update(cobrancaSaved);
 
-    await this.mailerService.send({
-      to: request.email,
-      from: 'cobranca@automatica.com.br',
-      body: `<h1>LinhaDigitavel: ${boleto.linhaDigitavel}</h1>`,
-      subject: 'boleto',
-      context: 'cobranca csv',
-    });
+    await this.mailerService
+      .send({
+        to: request.email,
+        from: 'cobranca@automatica.com.br',
+        body: `<h1>LinhaDigitavel: ${boleto.linhaDigitavel}</h1>`,
+        subject: 'boleto',
+        context: 'cobranca csv',
+      })
+      .catch();
 
     return {
       id: cobrancaSaved.id.value,

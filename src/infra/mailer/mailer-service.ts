@@ -1,19 +1,23 @@
+import type { ILogger } from '@app/contracts/logger';
 import type { IMailService, SendMailProps } from '@app/contracts/mail-service';
 
-import type { IHttpService } from '@infra/http-service';
+import { timeoutDelay } from '@infra/utils/timeout';
 export class MailerService implements IMailService {
-  constructor(private readonly httpService: IHttpService) {}
+  constructor(private readonly logger: ILogger) {}
 
   async send(data: SendMailProps): Promise<void> {
     const { from, to, body } = data;
-
-    await this.httpService.post({
-      url: 'https://webhook.site/cd675667-172f-410c-914f-f563f7a61197',
-      body: {
-        to,
-        from,
-        body,
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    await timeoutDelay(200);
+    this.logger.log(
+      {
+        body: {
+          to,
+          from,
+          body,
+        },
       },
-    });
+      'Mailer service',
+    );
   }
 }
