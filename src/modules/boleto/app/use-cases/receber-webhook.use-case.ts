@@ -7,7 +7,7 @@ import type {
 
 import type { IPublisherWebhook } from '../contracts/publisher-webhook';
 
-export class ReceberWebookUseCase implements IReceberWebhookUseCase {
+export class ReceberWebhookUseCase implements IReceberWebhookUseCase {
   constructor(
     private readonly repository: IWebhookRepository,
     private readonly publisher: IPublisherWebhook,

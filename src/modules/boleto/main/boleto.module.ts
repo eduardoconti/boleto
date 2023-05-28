@@ -11,7 +11,7 @@ import { InfraModule } from '@infra/infra.module';
 import {
   provideBoletoRepository,
   provideGerarBoletoItauService,
-  provideReceberWebookUseCase,
+  provideReceberWebhookUseCase,
   provideWebhookClientProxy,
   provideWebhookConsumer,
   provideWebhookRepository,
@@ -26,7 +26,7 @@ import {
     WebhookPublisher,
     provideWebhookRepository,
     provideWebhookConsumer,
-    provideReceberWebookUseCase,
+    provideReceberWebhookUseCase,
     provideWebhookClientProxy,
   ],
   exports: [
@@ -34,7 +34,7 @@ import {
     provideGerarBoletoItauService,
     provideWebhookRepository,
     provideWebhookConsumer,
-    provideReceberWebookUseCase,
+    provideReceberWebhookUseCase,
   ],
 })
 export class BoletoModule {}

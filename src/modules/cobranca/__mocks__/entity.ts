@@ -1,4 +1,9 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
+import {
+  mockBoletoEntityPago,
+  mockBoletoEntityPendente,
+} from '@boleto/__mocks__/entity';
+
 import { CobrancaEntity } from '@cobranca/domain/entities';
 import { ArquivoCobrancaEntity } from '@cobranca/domain/entities/arquivo-cobranca.entity';
 
@@ -40,6 +45,7 @@ export const mockCobrancaEntityPago: CobrancaEntity = new CobrancaEntity({
     valor: new Amount(1000),
     valorPago: new Amount(1000),
     email: new Email('es.eduardoconti@gmail.com'),
+    boleto: mockBoletoEntityPago,
   },
 });
 
@@ -53,5 +59,6 @@ export const mockCobrancaEntityPendente: CobrancaEntity = new CobrancaEntity({
     dataVencimento: new DateVO(new Date()),
     email: new Email('es.eduardoconti@gmail.com'),
     valor: new Amount(1000),
+    boleto: mockBoletoEntityPendente,
   },
 });

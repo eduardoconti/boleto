@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { ReceberWebookUseCase } from '@boleto/app/use-cases/receber-webhook.use-case';
+import { ReceberWebhookUseCase } from '@boleto/app/use-cases/receber-webhook.use-case';
 import { IReceberWebhookUseCase } from '@boleto/domain/use-cases';
 
 import { ApiInternalServerErrorResponse } from '@infra/__docs__';
@@ -22,7 +22,7 @@ import { WebhookItauInput } from '../dto/webhook-itau-input.dto';
 @UseGuards(JwtAuthGuard)
 export class WebhookBoletoController {
   constructor(
-    @Inject(ReceberWebookUseCase)
+    @Inject(ReceberWebhookUseCase)
     private readonly receberWebhookUseCase: IReceberWebhookUseCase,
   ) {}
 

@@ -5,7 +5,7 @@ import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 
 import type { IPublisherWebhook } from '@boleto/app/contracts';
 import { WebhookConsumer } from '@boleto/app/services/webhook.consumer';
-import { ReceberWebookUseCase } from '@boleto/app/use-cases/receber-webhook.use-case';
+import { ReceberWebhookUseCase } from '@boleto/app/use-cases/receber-webhook.use-case';
 import type { IWebhookRepository } from '@boleto/domain/contracts';
 import { GerarBoletoItauService } from '@boleto/infra/psp-services/itau/gerar-boleto-itau.service';
 import { WebhookPublisher } from '@boleto/infra/publisher';
@@ -51,13 +51,13 @@ export const provideWebhookConsumer: Provider<WebhookConsumer> = {
   inject: [CobrancaRepository],
 };
 
-export const provideReceberWebookUseCase: Provider<ReceberWebookUseCase> = {
-  provide: ReceberWebookUseCase,
+export const provideReceberWebhookUseCase: Provider<ReceberWebhookUseCase> = {
+  provide: ReceberWebhookUseCase,
   useFactory: (
     webhookRepository: IWebhookRepository,
     publisher: IPublisherWebhook,
   ) => {
-    return new ReceberWebookUseCase(webhookRepository, publisher);
+    return new ReceberWebhookUseCase(webhookRepository, publisher);
   },
   inject: [WebhookRepository, WebhookPublisher],
 };
