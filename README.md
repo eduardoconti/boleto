@@ -24,7 +24,33 @@
 
 ## Description
 
-Este é um projeto de API para geração e processamento de pagamentos via boleto.
+<p>Este é um projeto de API para geração e processamento de pagamentos via boleto.</p>
+<p>A partir do endpoint /cobranca é possivel criar um cobrança com boleto de forma síncrona.</p>
+<p>A partir do endpoint /cobranca/csv todo processamento de geração de cobrança, boleto e envio de email ocorre totalmente de forma assincrona.</p>
+<p>A documentação dos endpoints pode ser vista neste <a href="https://coveralls.io/github/nestjs/nest?branch=master](http://localhost:3000/docs#/)" target="_blank">endpoint</a> após iniciar a aplicação</p> 
+
+## Requisitos
+
+Precisamos criar um sistema de cobrança que:
+
+- Seja capaz de receber uma lista via API, com um CSV de nomes, CPFs, e-mails, valor da divida, vencimento da divida e cod. da divida.
+
+```
+name,governmentId,email,debtAmount,debtDueDate,debtId
+John [Doe,11111111111,johndoe@kanastra.com.br,1000000.00,2022-10-12,8291](mailto:Doe,11111111111,johndoe@kanastra.com.br,1000000.00,2022-10-12,8291) 
+```
+
+- Baseado nos inputs, o sistema precisa regularmente gerar os boletos p/ cobrança e disparar e-mails cobrando a lista
+- O sistema também precisa ser capaz de receber uma comunicação JSON do banco (***webhook***), avisando que um boleto foi pago e liquidado diretamente em nossa conta bancária, para dar baixa desse boleto no sistema. Exemplo de payload do webhook JSON que iremos receber para cada registro de pagamento:
+
+```json
+{
+	"debtId": "8291",
+	"paidAt": "2022-06-09 10:00:00",
+	"paidAmount": 100000.00,
+	"paidBy": "John Doe"
+}
+```
 
 ## Installation
 
