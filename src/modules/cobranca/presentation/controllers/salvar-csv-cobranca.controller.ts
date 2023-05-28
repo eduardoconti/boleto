@@ -10,7 +10,12 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { diskStorage } from 'multer';
 
 import { SalvarCsvCobrancaUseCase } from '@cobranca/app/use-cases';
@@ -39,6 +44,11 @@ export class SalvarCsvCobrancaController {
     detail: 'database error',
   })
   @ApiBearerAuth()
+  @ApiParam({
+    description: 'CSV file',
+    type: 'file',
+    name: 'cobranca',
+  })
   @HttpCode(HttpStatus.NO_CONTENT)
   @UseInterceptors(
     FileInterceptor('cobranca', {

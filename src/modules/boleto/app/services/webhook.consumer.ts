@@ -1,7 +1,5 @@
 import type { ICobrancaRepository } from '@cobranca/domain/contracts';
 
-import { SerialID } from '@domain-core/value-objects/id-serial.value-object';
-
 import type { IProcessarWebhook, ProcessarWebhookData } from '../contracts';
 
 export class WebhookConsumer implements IProcessarWebhook {
@@ -13,7 +11,7 @@ export class WebhookConsumer implements IProcessarWebhook {
     dataPagamento,
   }: ProcessarWebhookData): Promise<void> {
     const cobranca = await this.cobrancaRepository.findOne({
-      id: new SerialID(parseInt(idCobranca)),
+      boleto: { pspId: idCobranca },
     });
 
     cobranca.marcarComoPago({ valorPago, nomePagador, dataPagamento });

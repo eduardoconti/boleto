@@ -43,6 +43,7 @@ export class CobrancaRepository implements ICobrancaRepository {
       .findFirst({
         where: {
           id: params.id?.value as number,
+          boleto: { some: { id_psp: params.boleto?.pspId } },
         },
         include: { boleto: { where: { status: 'PENDENTE' } } },
       })
@@ -87,6 +88,20 @@ export class CobrancaRepository implements ICobrancaRepository {
               nome_pagador: boleto[boleto_position].nome_pagador,
               data_inclusao: boleto[boleto_position].data_inclusao,
               data_alteracao: boleto[boleto_position].data_alteracao,
+            },
+            where: { id: boleto[boleto_position].id },
+          },
+          update: {
+            data: {
+              data_vencimento: boleto[boleto_position].data_vencimento,
+              id_psp: boleto[boleto_position].id_psp,
+              linha_digitavel: boleto[boleto_position].linha_digitavel,
+              nome_devedor: boleto[boleto_position].nome_devedor,
+              status: boleto[boleto_position].status,
+              valor: boleto[boleto_position].valor,
+              data_pagamento: boleto[boleto_position].data_pagamento,
+              nome_pagador: boleto[boleto_position].nome_pagador,
+              data_alteracao: DateVO.now().value,
             },
             where: { id: boleto[boleto_position].id },
           },

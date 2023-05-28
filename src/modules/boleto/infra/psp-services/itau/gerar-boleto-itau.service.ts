@@ -11,6 +11,10 @@ export class GerarBoletoItauService implements IGerarBoletoComPSP {
   async gerarBoleto(request: GerarBoletoRequest): Promise<GerarBoletoResponse> {
     try {
       await timeoutDelay(fakeDelay);
+      const min = 1000;
+      const max = 100000;
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+      const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
       return {
         dataVencimento: new Date(),
         idCobranca: request.idCobranca,
@@ -18,6 +22,7 @@ export class GerarBoletoItauService implements IGerarBoletoComPSP {
           '34191.79001 01043.510047 91020.150008 5 88110000099999',
         nomeDevedor: request.nomeDevedor,
         valor: request.valor,
+        pspId: randomNumber.toString(),
       };
     } catch (error) {
       throw new FalhaAoCriarBoletoComItau('Itau indisponivel');

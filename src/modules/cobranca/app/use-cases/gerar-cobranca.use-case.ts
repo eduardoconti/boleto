@@ -24,7 +24,7 @@ export class GerarCobrancaUseCase implements IGerarCobrancaUseCase {
 
     const cobrancaSaved = await this.cobrancaRepository.save(cobranca);
 
-    const { linhaDigitavel } = await this.pspService
+    const { linhaDigitavel, pspId } = await this.pspService
       .gerarBoleto({
         dataVencimento: request.dataVencimento,
         idCobranca: cobrancaSaved.id.value.toString(),
@@ -39,7 +39,7 @@ export class GerarCobrancaUseCase implements IGerarCobrancaUseCase {
       dataVencimento: request.dataVencimento,
       idCobranca: cobrancaSaved.id.value,
       nomeDevedor: request.nomeDevedor,
-      pspId: 'request',
+      pspId: pspId,
       valor: request.valor,
       linhaDigitavel,
     });

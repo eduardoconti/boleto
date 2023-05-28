@@ -97,7 +97,7 @@ describe('CobrancaRepository', () => {
         .mockRejectedValue(new Error('db error'));
 
       await expect(
-        cobrancaRepository.findOne(mockCobrancaEntityPendente),
+        cobrancaRepository.findOne({ id: mockCobrancaEntityPendente.id }),
       ).rejects.toThrowError(CobrancaRepositoryException);
     });
 
@@ -105,7 +105,7 @@ describe('CobrancaRepository', () => {
       jest.spyOn(prismaService.cobranca, 'findFirst').mockResolvedValue(null);
 
       await expect(
-        cobrancaRepository.findOne(mockCobrancaEntityPendente),
+        cobrancaRepository.findOne({ id: mockCobrancaEntityPendente.id }),
       ).rejects.toThrowError(CobrancaNotFoundException);
     });
   });
