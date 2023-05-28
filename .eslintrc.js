@@ -33,6 +33,7 @@ module.exports = {
           'module',
           '/^@app/',
           '/^@boleto/',
+          '/^@cobranca/',
           '/^@domain/',
           '/^@domain-core/',
           '/^@infra/',

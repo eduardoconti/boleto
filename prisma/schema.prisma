@@ -21,24 +21,51 @@ model user {
 enum status_boleto {
   PENDENTE
   PAGO
+  EXPIRADO
+}
+
+enum status_cobranca {
+  EM_ABERTO
+  VENCIDA
+  PAGO
+  FALHA_GERAR_BOLETO
+}
+
+enum psp {
+  ITAU
+}
+
+model cobranca {
+  id              Int             @id @default(autoincrement())
+  valor           Int
+  nome_devedor    String
+  data_vencimento DateTime
+  status          status_cobranca
+  email           String
+  data_pagamento  DateTime?
+  nome_pagador    String?
+  data_inclusao   DateTime        @default(now())
+  data_alteracao  DateTime        @updatedAt
+  boleto          boleto[]
 }
 
 model boleto {
   id              String        @id
-  id_cobranca     String
+  id_cobranca     Int
   id_psp          String
   valor           Int
   nome_devedor    String
+  linha_digitavel String
   data_vencimento DateTime
   data_pagamento  DateTime?
   nome_pagador    String?
   status          status_boleto
-  email           String
   data_inclusao   DateTime      @default(now())
   data_alteracao  DateTime      @updatedAt
+  cobranca        cobranca      @relation(fields: [id_cobranca], references: [id])
 }
 
-model boleto_csv {
+model cobranca_arquivo {
   id             String   @id
   caminho        String
   processado     Boolean

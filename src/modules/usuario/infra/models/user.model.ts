@@ -4,7 +4,7 @@ import { Model } from '@infra/database/model/base-model';
 
 import { UserEntity } from '@usuario/domain/entities';
 
-export class UserModel extends Model {
+export class UserModel extends Model<string> {
   nome!: string;
   email!: string;
   senha!: string;

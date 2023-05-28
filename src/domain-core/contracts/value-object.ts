@@ -1,6 +1,6 @@
 export type Primitives = string | number | boolean | Date;
 
-export interface DomainPrimitive<T extends Primitives> {
+export interface DomainPrimitive<T extends Primitives | unknown> {
   value: T;
 }
 type ValueObjectProps<T> = T extends Primitives ? DomainPrimitive<T> : T;

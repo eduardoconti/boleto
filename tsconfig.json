@@ -49,6 +49,9 @@
       "@boleto/*": [
         "src/modules/boleto/*"
       ],
+      "@cobranca/*": [
+        "src/modules/cobranca/*"
+      ],
       "@domain-core/*": [
         "src/domain-core/*"
       ],

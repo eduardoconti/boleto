@@ -5,21 +5,28 @@
 import { Controller, Inject } from '@nestjs/common';
 import { Ctx, EventPattern, Payload, RmqContext } from '@nestjs/microservices';
 
+import { IMonitorError } from '@app/contracts';
+
 import {
   IProcessarWebhook,
   ProcessarWebhookData,
 } from '@boleto/app/contracts/processar-webhook';
 import { WebhookConsumer } from '@boleto/app/services/webhook.consumer';
 
+import { SentryMonitorError } from '@infra/sentry';
+
 @Controller()
 export class ProcessarWebhookEventHandler {
   constructor(
     @Inject(WebhookConsumer)
     private readonly processarCsvConsumer: IProcessarWebhook,
+    @Inject(SentryMonitorError)
+    private readonly monitorErro: IMonitorError,
   ) {}
   @EventPattern('PROCESSAR_WEBHOOK')
   async handle(
-    @Payload() { idCobranca, valorPago, nomePagador }: ProcessarWebhookData,
+    @Payload()
+    { idCobranca, valorPago, nomePagador, dataPagamento }: ProcessarWebhookData,
     @Ctx() context: RmqContext,
   ): Promise<void> {
     const channel = context.getChannelRef();
@@ -29,9 +36,10 @@ export class ProcessarWebhookEventHandler {
         idCobranca,
         valorPago,
         nomePagador,
+        dataPagamento,
       });
     } catch (error) {
-      console.log(error);
+      this.monitorErro.capture(error);
     }
     channel.ack(originalMsg);
   }

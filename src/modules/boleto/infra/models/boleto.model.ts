@@ -1,13 +1,14 @@
-import { Amount, DateVO, Email, Nome, UUID } from '@domain-core/value-objects';
+import type { StatusBoleto } from '@boleto/domain/entities';
+import { BoletoEntity } from '@boleto/domain/entities';
+
+import { Amount, DateVO, Nome, UUID } from '@domain-core/value-objects';
+import { SerialID } from '@domain-core/value-objects/id-serial.value-object';
 
 import { Model } from '@infra/database/model/base-model';
 
-import type { StatusBoleto } from '../../domain/entities';
-import { BoletoEntity } from '../../domain/entities';
-
-export class BoletoModel extends Model {
+export class BoletoModel extends Model<string> {
   id!: string;
-  id_cobranca!: string;
+  id_cobranca!: number;
   id_psp!: string;
   valor!: number;
   nome_devedor!: string;
@@ -15,13 +16,13 @@ export class BoletoModel extends Model {
   data_pagamento?: Date | null;
   nome_pagador?: string | null;
   status!: StatusBoleto;
-  email!: string;
   data_inclusao!: Date;
   data_alteracao!: Date;
+  linha_digitavel!: string;
   static fromEntity(entity: BoletoEntity): BoletoModel {
     return {
       id: entity.id.value,
-      id_cobranca: entity.idCobranca,
+      id_cobranca: entity.idCobranca.value,
       id_psp: entity.pspId,
       valor: entity.valor.value,
       nome_devedor: entity.nomeDevedor.value,
@@ -29,9 +30,9 @@ export class BoletoModel extends Model {
       data_pagamento: entity.dataPagamento?.value ?? null,
       nome_pagador: entity.nomePagador?.value ?? null,
       status: entity.status,
-      email: entity.email.value,
       data_alteracao: entity.dataAlteracao.value,
       data_inclusao: entity.dataInclusao.value,
+      linha_digitavel: entity.linhaDigitavel,
     };
   }
 
@@ -45,24 +46,24 @@ export class BoletoModel extends Model {
     data_vencimento,
     data_pagamento,
     status,
-    email,
     data_inclusao,
     data_alteracao,
+    linha_digitavel,
   }: BoletoModel): BoletoEntity {
     return new BoletoEntity({
       id: new UUID(id),
       dataInclusao: new DateVO(data_inclusao),
       dataAlteracao: new DateVO(data_alteracao),
       props: {
-        idCobranca: id_cobranca,
+        idCobranca: new SerialID(id_cobranca),
         pspId: id_psp,
         valor: new Amount(valor),
         nomeDevedor: new Nome(nome_devedor),
         status,
-        email: new Email(email),
         dataVencimento: new DateVO(data_vencimento),
         dataPagamento: data_pagamento ? new DateVO(data_pagamento) : undefined,
         nomePagador: nome_pagador ? new Nome(nome_pagador) : undefined,
+        linhaDigitavel: linha_digitavel,
       },
     });
   }

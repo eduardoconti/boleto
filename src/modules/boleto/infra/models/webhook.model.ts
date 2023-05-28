@@ -4,7 +4,7 @@ import { Amount, DateVO, UUID } from '@domain-core/value-objects';
 
 import { Model } from '@infra/database/model/base-model';
 
-export class WebhookModel extends Model {
+export class WebhookModel extends Model<string> {
   id!: string;
   payload!: string;
   id_cobranca!: string;

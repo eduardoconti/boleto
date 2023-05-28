@@ -137,7 +137,8 @@
       "^@domain-core/(.*)$": "<rootDir>/../src/domain-core/$1",
       "^@auth/(.*)$": "<rootDir>/../src/modules/auth/$1",
       "^@usuario/(.*)$": "<rootDir>/../src/modules/usuario/$1",
-      "^@boleto/(.*)$": "<rootDir>/../src/modules/boleto/$1"
+      "^@boleto/(.*)$": "<rootDir>/../src/modules/boleto/$1",
+      "^@cobranca/(.*)$": "<rootDir>/../src/modules/cobranca/$1"
     }
   },
   "release": {

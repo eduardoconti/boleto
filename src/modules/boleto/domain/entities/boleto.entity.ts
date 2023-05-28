@@ -1,14 +1,13 @@
 import { Entity } from '@domain-core/contracts';
 import { Amount, DateVO } from '@domain-core/value-objects';
 import { UUID } from '@domain-core/value-objects';
-import { Email } from '@domain-core/value-objects/email.value-object';
+import { SerialID } from '@domain-core/value-objects/id-serial.value-object';
 import { Nome } from '@domain-core/value-objects/nome.value-object';
 
-export type StatusBoleto = 'PENDENTE' | 'PAGO';
+export type StatusBoleto = 'PENDENTE' | 'PAGO' | 'EXPIRADO';
 
 export interface BoletoProps {
-  email: Email;
-  idCobranca: string;
+  idCobranca: SerialID;
   pspId: string;
   valor: Amount;
   dataVencimento: DateVO;
@@ -17,12 +16,12 @@ export interface BoletoProps {
   valorPago?: Amount;
   nomePagador?: Nome;
   dataPagamento?: DateVO;
+  linhaDigitavel: string;
 }
 
 export interface BoletoPrimitivesProps {
   id: string;
-  idCobranca: string;
-  email: string;
+  idCobranca: number;
   pspId: string;
   valor: number;
   dataVencimento: Date;
@@ -33,16 +32,13 @@ export interface BoletoPrimitivesProps {
   valorPago?: number;
   nomePagador?: string;
   dataPagamento?: Date;
+  linhaDigitavel: string;
 }
 
 export class BoletoEntity extends Entity<BoletoProps> {
   protected readonly _id!: UUID;
 
-  get email(): Email {
-    return this.props.email;
-  }
-
-  get idCobranca(): string {
+  get idCobranca(): SerialID {
     return this.props.idCobranca;
   }
 
@@ -78,13 +74,21 @@ export class BoletoEntity extends Entity<BoletoProps> {
     return this.props.dataPagamento;
   }
 
+  get id(): UUID {
+    return this._id;
+  }
+
+  get linhaDigitavel(): string {
+    return this.props.linhaDigitavel;
+  }
+
   static create({
-    email,
     pspId,
     valor,
     dataVencimento,
     idCobranca,
     nomeDevedor,
+    linhaDigitavel,
   }: Omit<
     BoletoPrimitivesProps,
     'id' | 'dataAlteracao' | 'dataInclusao' | 'nomePagador' | 'status'
@@ -94,13 +98,13 @@ export class BoletoEntity extends Entity<BoletoProps> {
     return new BoletoEntity({
       id: id,
       props: {
-        email: new Email(email),
         pspId,
         valor: new Amount(valor),
         dataVencimento: new DateVO(dataVencimento),
         status: 'PENDENTE',
-        idCobranca,
+        idCobranca: new SerialID(idCobranca),
         nomeDevedor: new Nome(nomeDevedor),
+        linhaDigitavel,
       },
     });
   }

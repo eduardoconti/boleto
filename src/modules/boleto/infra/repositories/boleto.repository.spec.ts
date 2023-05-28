@@ -79,18 +79,6 @@ describe('BoletoRepository', () => {
       expect(result).toBeDefined();
     });
 
-    it('shouls findOne by Email successfully', async () => {
-      const model = BoletoModel.fromEntity(mockBoletoEntityPendente);
-
-      jest
-        .spyOn(prismaService.boleto, 'findFirst')
-        .mockResolvedValue(model as boleto);
-      const result = await boletoRepository.findOne({
-        email: mockBoletoEntityPendente.props.email,
-      });
-      expect(result).toBeDefined();
-    });
-
     it('should throw BoletoRepositoryException when prisma failed', async () => {
       jest
         .spyOn(prismaService.boleto, 'findFirst')

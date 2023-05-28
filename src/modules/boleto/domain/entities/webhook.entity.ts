@@ -22,6 +22,10 @@ export interface WebhookPrimitiveProps {
 export class WebhookEntity extends AggregateRoot<WebhookProps> {
   protected readonly _id!: UUID;
 
+  get id(): UUID {
+    return this._id;
+  }
+
   get idCobranca(): string {
     return this.props.idCobranca;
   }

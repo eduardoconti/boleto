@@ -1,23 +1,20 @@
-import type { IBoletoRepository } from '@boleto/domain/contracts';
+import type { ICobrancaRepository } from '@cobranca/domain/contracts';
 
 import type { IProcessarWebhook, ProcessarWebhookData } from '../contracts';
 
 export class WebhookConsumer implements IProcessarWebhook {
-  constructor(private readonly boletoRepository: IBoletoRepository) {}
+  constructor(private readonly cobrancaRepository: ICobrancaRepository) {}
   async handle({
     idCobranca,
     valorPago,
     nomePagador,
+    dataPagamento,
   }: ProcessarWebhookData): Promise<void> {
-    const boleto = await this.boletoRepository.findOne({
-      idCobranca,
+    const cobranca = await this.cobrancaRepository.findOne({
+      boleto: { pspId: idCobranca },
     });
 
-    boleto.realizarPagamento({
-      valorPago: valorPago,
-      nomePagador: nomePagador,
-    });
-
-    await this.boletoRepository.update(boleto);
+    cobranca.marcarComoPago({ valorPago, nomePagador, dataPagamento });
+    await this.cobrancaRepository.update(cobranca);
   }
 }

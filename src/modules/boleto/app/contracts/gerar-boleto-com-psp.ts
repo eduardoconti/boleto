@@ -11,6 +11,7 @@ export interface GerarBoletoResponse {
   nomeDevedor: string;
   idCobranca: string;
   linhaDigitavel: string;
+  pspId: string;
 }
 
 export interface IGerarBoletoComPSP {

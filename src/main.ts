@@ -13,6 +13,7 @@ import {
 } from '@infra/exception-filter';
 import { LoggingInterceptor } from '@infra/interceptors';
 import { ValidationPipe } from '@infra/pipes';
+import { rabbitmqDefaultOptions } from '@infra/rabbitmq';
 
 import type { EnvironmentVariables } from './main/config';
 import { DEFAULT_PORT } from './main/config';
@@ -44,6 +45,8 @@ async function bootstrap(): Promise<void> {
     )
     .addTag('auth', 'Endpoints para autenticação')
     .addTag('user', 'Endpoints para gerenciamento de usuário')
+    .addTag('boleto', 'Endpoints para gerenciamento de boletos')
+    .addTag('cobrança', 'Endpoints para gerenciamento de cobranças')
     .addBearerAuth({
       type: 'http',
       description: 'Todos os endpoints precisam do token de acesso!',
@@ -55,28 +58,18 @@ async function bootstrap(): Promise<void> {
   app.connectMicroservice<RmqOptions>({
     transport: Transport.RMQ,
     options: {
-      urls: ['amqp://rabbitmq:5672'],
-      queue: 'csv_boleto',
-      prefetchCount: 20,
-      persistent: true,
-      noAck: false,
-      queueOptions: {
-        durable: true,
-      },
+      urls: [`${configService.getOrThrow<string>('RABBITMQ_URL')}`],
+      queue: 'csv_cobranca',
+      ...rabbitmqDefaultOptions.options,
     },
   });
 
   app.connectMicroservice<RmqOptions>({
     transport: Transport.RMQ,
     options: {
-      urls: ['amqp://rabbitmq:5672'],
+      urls: [`${configService.getOrThrow<string>('RABBITMQ_URL')}`],
       queue: 'webhook',
-      prefetchCount: 20,
-      persistent: true,
-      noAck: false,
-      queueOptions: {
-        durable: true,
-      },
+      ...rabbitmqDefaultOptions.options,
     },
   });
 
