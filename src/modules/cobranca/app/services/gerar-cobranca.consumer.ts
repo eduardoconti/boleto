@@ -23,8 +23,8 @@ export class GerarCobrancaConsumer implements IProcessarCsvCobranca {
 
     const linhasCsv = await this.csvReader.read(csvCobranca.caminho);
     await Promise.all(
-      linhasCsv.map(async (e) => {
-        await this.gerarCobrancaUseCase.execute({
+      linhasCsv.map((e) => {
+        return this.gerarCobrancaUseCase.execute({
           dataVencimento: e.debtDueDate,
           email: e.email,
           nomeDevedor: e.name,
