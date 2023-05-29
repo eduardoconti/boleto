@@ -75,7 +75,7 @@ export class CobrancaRepository implements ICobrancaRepository {
       };
       if (boleto?.length) {
         data.boleto = {
-          connectOrCreate: {
+          upsert: {
             create: {
               data_vencimento: boleto[boleto_position].data_vencimento,
               id: boleto[boleto_position].id,
@@ -90,9 +90,7 @@ export class CobrancaRepository implements ICobrancaRepository {
               data_alteracao: boleto[boleto_position].data_alteracao,
             },
             where: { id: boleto[boleto_position].id },
-          },
-          update: {
-            data: {
+            update: {
               data_vencimento: boleto[boleto_position].data_vencimento,
               id_psp: boleto[boleto_position].id_psp,
               linha_digitavel: boleto[boleto_position].linha_digitavel,
@@ -103,14 +101,13 @@ export class CobrancaRepository implements ICobrancaRepository {
               nome_pagador: boleto[boleto_position].nome_pagador,
               data_alteracao: DateVO.now().value,
             },
-            where: { id: boleto[boleto_position].id },
           },
         };
       }
       const saved = await this.prismaService.cobranca.update({
         data,
         where: { id },
-        include: { boleto: { where: { status: 'PENDENTE' } } },
+        include: { boleto: true },
       });
       return CobrancaModel.toEntity(saved as CobrancaModel);
     } catch (e) {
