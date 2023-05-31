@@ -1,8 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import type { RmqOptions } from '@nestjs/microservices';
-import { Transport } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { PrismaService } from '@infra/database/prisma';
@@ -13,7 +11,6 @@ import {
 } from '@infra/exception-filter';
 import { LoggingInterceptor } from '@infra/interceptors';
 import { ValidationPipe } from '@infra/pipes';
-import { rabbitmqDefaultOptions } from '@infra/rabbitmq';
 
 import type { EnvironmentVariables } from './main/config';
 import { DEFAULT_PORT } from './main/config';
@@ -55,25 +52,6 @@ async function bootstrap(): Promise<void> {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
-  app.connectMicroservice<RmqOptions>({
-    transport: Transport.RMQ,
-    options: {
-      urls: [`${configService.getOrThrow<string>('RABBITMQ_URL')}`],
-      queue: 'csv_cobranca',
-      ...rabbitmqDefaultOptions.options,
-    },
-  });
-
-  app.connectMicroservice<RmqOptions>({
-    transport: Transport.RMQ,
-    options: {
-      urls: [`${configService.getOrThrow<string>('RABBITMQ_URL')}`],
-      queue: 'webhook',
-      ...rabbitmqDefaultOptions.options,
-    },
-  });
-
-  await app.startAllMicroservices();
   await app.listen(configService.get('PORT') | DEFAULT_PORT);
 }
 bootstrap();

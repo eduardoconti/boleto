@@ -2,7 +2,6 @@ import { Module, forwardRef } from '@nestjs/common';
 
 import { WebhookPublisher } from '@boleto/infra/publisher';
 import { WebhookBoletoController } from '@boleto/presentation/controllers';
-import { ProcessarWebhookEventHandler } from '@boleto/presentation/event-handler/processar-webhook.event-handler';
 
 import { CobrancaModule } from '@cobranca/main/cobranca.module';
 
@@ -19,7 +18,7 @@ import {
 
 @Module({
   imports: [InfraModule, forwardRef(() => CobrancaModule)],
-  controllers: [ProcessarWebhookEventHandler, WebhookBoletoController],
+  controllers: [WebhookBoletoController],
   providers: [
     provideBoletoRepository,
     provideGerarBoletoItauService,

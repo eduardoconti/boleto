@@ -16,6 +16,8 @@ export interface EnvironmentVariables {
   RABBITMQ_URL: string;
   RABBITMQ_HOST: string;
   RABBITMQ_PORT: number;
+  CONSUMER_CSV_PORT: number;
+  CONSUMER_WEBHOOK_PORT: number;
 }
 
 export const configValidationSchema = Joi.object({

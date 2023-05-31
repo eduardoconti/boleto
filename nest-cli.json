@@ -27,6 +27,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/cobranca/tsconfig.app.json"
       }
+    },
+    "webhook": {
+      "type": "application",
+      "root": "apps/webhook",
+      "entryFile": "main",
+      "sourceRoot": "apps/webhook/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/webhook/tsconfig.app.json"
+      }
     }
   }
 }

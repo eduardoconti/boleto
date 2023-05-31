@@ -1,20 +1,56 @@
 version: '3.7'
 
 services:
-  # boleto-api:
-  #   container_name: boleto-api
-  #   restart: on-failure
-  #   build: .
-  #   volumes:
-  #     - .:/app
-  #   ports:
-  #     - ${PORT}:${PORT}
-  #   env_file:
-  #     - .env
-  #   command: yarn start:dev
-  #   depends_on:
-  #     - postgres
-  #     - rabbitmq
+  boleto-api:
+    container_name: boleto-api
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: ./apps/boleto-api/Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - ${PORT}:${PORT}
+    env_file:
+      - .env
+    command: yarn start:dev
+    depends_on:
+      - postgres
+      - rabbitmq
+    
+  consumer-csv:
+    container_name: consumer-csv
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: ./apps/cobranca/Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - ${CONSUMER_CSV_PORT}:${CONSUMER_CSV_PORT}
+    env_file:
+      - .env
+    command: yarn start:consumer-csv:dev
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  consumer-webhook:
+    container_name: consumer-webhook
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: ./apps/webhook/Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - ${CONSUMER_WEBHOOK_PORT}:${CONSUMER_WEBHOOK_PORT}
+    env_file:
+      - .env
+    command: yarn start:consumer-webhook:dev
+    depends_on:
+      - postgres
+      - rabbitmq
 
   postgres:
     image: postgres:alpine

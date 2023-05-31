@@ -5,7 +5,6 @@ import { BoletoModule } from '@boleto/main/boleto.module';
 import { GerarCobrancaPublisher } from '@cobranca/infra/publisher';
 import { GerarCobrancaController } from '@cobranca/presentation/controllers';
 import { SalvarCsvCobrancaController } from '@cobranca/presentation/controllers/salvar-csv-cobranca.controller';
-import { ProcessarCsvCobrancaEventHandler } from '@cobranca/presentation/event-handler';
 
 import { InfraModule } from '@infra/infra.module';
 
@@ -20,11 +19,7 @@ import {
 
 @Module({
   imports: [InfraModule, forwardRef(() => BoletoModule)],
-  controllers: [
-    GerarCobrancaController,
-    SalvarCsvCobrancaController,
-    ProcessarCsvCobrancaEventHandler,
-  ],
+  controllers: [GerarCobrancaController, SalvarCsvCobrancaController],
   providers: [
     provideGerarCobrancaUseCase,
     provideCobrancaRepository,
