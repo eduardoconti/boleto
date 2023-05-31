@@ -8,17 +8,17 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"apps/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node dist/apps/boleto-api/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:e2e": "jest --config ./apps/boleto-api/test/jest-e2e.json",
     "migrate": "yarn prisma migrate deploy",
     "migrate:dev": "yarn prisma migrate dev",
     "generate": "yarn prisma generate",
@@ -104,7 +104,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": ".",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
@@ -126,20 +126,23 @@
       "!<rootDir>/infra/decorators/**",
       "!<rootDir>/**/dependency-injection.ts"
     ],
-    "coverageDirectory": "../coverage",
+    "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "moduleNameMapper": {
-      "^@app/(.*)$": "<rootDir>/../src/app/$1",
-      "^@domain/(.*)$": "<rootDir>/../src/domain/$1",
-      "^@infra/(.*)$": "<rootDir>/../src/infra/$1",
-      "^@main/(.*)$": "<rootDir>/../src/main/$1",
-      "^@presentation/(.*)$": "<rootDir>/../src/presentation/$1",
-      "^@domain-core/(.*)$": "<rootDir>/../src/domain-core/$1",
-      "^@auth/(.*)$": "<rootDir>/../src/modules/auth/$1",
-      "^@usuario/(.*)$": "<rootDir>/../src/modules/usuario/$1",
-      "^@boleto/(.*)$": "<rootDir>/../src/modules/boleto/$1",
-      "^@cobranca/(.*)$": "<rootDir>/../src/modules/cobranca/$1"
-    }
+      "^@app/(.*)$": "<rootDir>/apps/boleto-api/src/app/$1",
+      "^@domain/(.*)$": "<rootDir>/apps/boleto-api/src/domain/$1",
+      "^@infra/(.*)$": "<rootDir>/apps/boleto-api/src/infra/$1",
+      "^@main/(.*)$": "<rootDir>/apps/boleto-api/src/main/$1",
+      "^@presentation/(.*)$": "<rootDir>/apps/boleto-api/src/presentation/$1",
+      "^@domain-core/(.*)$": "<rootDir>/apps/boleto-api/src/domain-core/$1",
+      "^@auth/(.*)$": "<rootDir>/apps/boleto-api/src/modules/auth/$1",
+      "^@usuario/(.*)$": "<rootDir>/apps/boleto-api/src/modules/usuario/$1",
+      "^@boleto/(.*)$": "<rootDir>/apps/boleto-api/src/modules/boleto/$1",
+      "^@cobranca/(.*)$": "<rootDir>/apps/boleto-api/src/modules/cobranca/$1"
+    },
+    "roots": [
+      "<rootDir>/apps/"
+    ]
   },
   "release": {
     "branches": [

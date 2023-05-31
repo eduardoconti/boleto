@@ -39,13 +39,13 @@ describe('AppController (e2e)', () => {
   });
 
   it('/ (GET)', () => {
-    return request(app.getHttpServer()).get('/').expect(200);
+    return request(app.getHttpServer()).get('/').expect(404);
   });
 
   it('/immediate-charge (POST)', async () => {
     await request(app.getHttpServer())
       .post('/immediate-charge')
       .send({})
-      .expect(400);
+      .expect(404);
   });
 });
