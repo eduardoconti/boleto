@@ -31,9 +31,6 @@
       "@domain/*": [
         "apps/boleto-api/src/domain/*"
       ],
-      "@infra/*": [
-        "apps/boleto-api/src/infra/*"
-      ],
       "@main/*": [
         "apps/boleto-api/src/main/*"
       ],
@@ -54,11 +51,14 @@
       ],
       "@domain-core/*": [
         "apps/boleto-api/src/domain-core/*"
+      ],
+      "@infra/*": [
+        "libs/infra/src/*"
       ]
     }
   },
   "include": [
-    "apps/**/*",
+    "apps/**/*"
   ],
   "exclude": [
     "node_modules"

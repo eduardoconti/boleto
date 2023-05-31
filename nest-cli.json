@@ -36,6 +36,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/webhook/tsconfig.app.json"
       }
+    },
+    "infra": {
+      "type": "library",
+      "root": "libs/infra",
+      "entryFile": "index",
+      "sourceRoot": "libs/infra/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/infra/tsconfig.lib.json"
+      }
     }
   }
 }

@@ -135,7 +135,7 @@
     "moduleNameMapper": {
       "^@app/(.*)$": "<rootDir>/apps/boleto-api/src/app/$1",
       "^@domain/(.*)$": "<rootDir>/apps/boleto-api/src/domain/$1",
-      "^@infra/(.*)$": "<rootDir>/apps/boleto-api/src/infra/$1",
+      "^@infra/(.*)$": "<rootDir>/libs/infra/src/$1",
       "^@main/(.*)$": "<rootDir>/apps/boleto-api/src/main/$1",
       "^@presentation/(.*)$": "<rootDir>/apps/boleto-api/src/presentation/$1",
       "^@domain-core/(.*)$": "<rootDir>/apps/boleto-api/src/domain-core/$1",
@@ -145,7 +145,8 @@
       "^@cobranca/(.*)$": "<rootDir>/apps/boleto-api/src/modules/cobranca/$1"
     },
     "roots": [
-      "<rootDir>/apps/"
+      "<rootDir>/apps/",
+      "<rootDir>/libs/"
     ]
   },
   "release": {
