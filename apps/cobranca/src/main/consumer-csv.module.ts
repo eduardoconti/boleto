@@ -13,4 +13,4 @@ import { provideGerarCobrancaConsumer } from './dependency-injection';
   controllers: [ProcessarCsvCobrancaEventHandler],
   providers: [provideGerarCobrancaConsumer],
 })
-export class ConsumerProcessarCsv {}
+export class ConsumerCsvModule {}

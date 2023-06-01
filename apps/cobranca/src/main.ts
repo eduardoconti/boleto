@@ -7,10 +7,10 @@ import { rabbitmqDefaultOptions } from '@infra/rabbitmq';
 
 import type { EnvironmentVariables } from '@main/config';
 
-import { ConsumerProcessarCsv } from './main/consumer-csv.module';
+import { ConsumerCsvModule } from './main/consumer-csv.module';
 
 async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create(ConsumerProcessarCsv);
+  const app = await NestFactory.create(ConsumerCsvModule);
   const configService = app.get(ConfigService<EnvironmentVariables>);
 
   app.connectMicroservice<RmqOptions>({
