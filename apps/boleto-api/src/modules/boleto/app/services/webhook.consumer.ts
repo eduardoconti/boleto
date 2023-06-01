@@ -13,7 +13,6 @@ export class WebhookConsumer implements IProcessarWebhook {
     const cobranca = await this.cobrancaRepository.findOne({
       boleto: { pspId: idCobranca },
     });
-
     cobranca.marcarComoPago({ valorPago, nomePagador, dataPagamento });
     await this.cobrancaRepository.update(cobranca);
   }

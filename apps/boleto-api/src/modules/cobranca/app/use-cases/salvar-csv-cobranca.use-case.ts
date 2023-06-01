@@ -13,17 +13,17 @@ export class SalvarCsvCobrancaUseCase implements ISalvarCsvCobrancaUseCase {
     private readonly repository: ICsvCobrancaRepository,
     private readonly publisher: IPublisherCsvCobranca,
   ) {}
-  async execute(
-    request: ISalvarCsvCobrancaUseCaseInput,
-  ): Promise<ISalvarCsvCobrancaUseCaseOutput> {
-    const csv = ArquivoCobrancaEntity.create({ ...request });
+  async execute({
+    caminho,
+  }: ISalvarCsvCobrancaUseCaseInput): Promise<ISalvarCsvCobrancaUseCaseOutput> {
+    const csv = ArquivoCobrancaEntity.create({ caminho });
     await this.repository.save(csv);
 
     await this.publisher.publish({
       idCsvCobranca: csv.id.value,
     });
     return {
-      caminho: request.caminho,
+      caminho,
       id: csv.id.value,
     };
   }

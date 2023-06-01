@@ -1,9 +1,14 @@
-import type { ILogger } from '@app/contracts/logger';
+import { Inject, Logger } from '@nestjs/common';
+
+import { ILogger } from '@app/contracts/logger';
 import type { IMailService, SendMailProps } from '@app/contracts/mail-service';
 
 import { timeoutDelay } from '@infra/utils/timeout';
 export class MailerService implements IMailService {
-  constructor(private readonly logger: ILogger) {}
+  constructor(
+    @Inject(Logger)
+    private readonly logger: ILogger,
+  ) {}
 
   async send(data: SendMailProps): Promise<void> {
     const { from, to, body } = data;

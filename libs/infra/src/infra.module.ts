@@ -20,6 +20,7 @@ import { ReadFileCsv } from './csv/csv-reader';
 import { PrismaService } from './database/prisma';
 import { HttpService } from './http-service';
 import { provideMailerService } from './infra.provider';
+import { MailerService } from './mailer';
 import { SentryMonitorError } from './sentry';
 import { JwtStrategy } from './strategy/auth';
 
@@ -84,6 +85,7 @@ import { JwtStrategy } from './strategy/auth';
     JwtStrategy,
     provideMailerService,
     ReadFileCsv,
+    MailerService,
   ],
   exports: [
     HttpService,
@@ -93,6 +95,7 @@ import { JwtStrategy } from './strategy/auth';
     JwtModule,
     provideMailerService,
     ReadFileCsv,
+    MailerService,
   ],
 })
 export class InfraModule {}

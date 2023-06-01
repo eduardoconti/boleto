@@ -8,5 +8,8 @@ export const rabbitmqDefaultOptions: Pick<RmqOptions, 'options'> = {
     queueOptions: {
       durable: true,
     },
+    socketOptions: {
+      heartbeatIntervalInSeconds: 60,
+    },
   },
 };

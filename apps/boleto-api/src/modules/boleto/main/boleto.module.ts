@@ -1,39 +1,10 @@
-import { Module, forwardRef } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 
-import { WebhookPublisher } from '@boleto/infra/publisher';
-import { WebhookBoletoController } from '@boleto/presentation/controllers';
-
-import { CobrancaModule } from '@cobranca/main/cobranca.module';
-
-import { InfraModule } from '@infra/infra.module';
-
-import {
-  provideBoletoRepository,
-  provideGerarBoletoItauService,
-  provideReceberWebhookUseCase,
-  provideWebhookClientProxy,
-  provideWebhookConsumer,
-  provideWebhookRepository,
-} from './dependency-injection';
+import { BoletoAppModule } from './boleto-app.module';
+import { BoletoInfraModule } from './boleto-infra.module';
+import { BoletoPresentationModule } from './boleto-presentation.module';
 
 @Module({
-  imports: [InfraModule, forwardRef(() => CobrancaModule)],
-  controllers: [WebhookBoletoController],
-  providers: [
-    provideBoletoRepository,
-    provideGerarBoletoItauService,
-    WebhookPublisher,
-    provideWebhookRepository,
-    provideWebhookConsumer,
-    provideReceberWebhookUseCase,
-    provideWebhookClientProxy,
-  ],
-  exports: [
-    provideBoletoRepository,
-    provideGerarBoletoItauService,
-    provideWebhookRepository,
-    provideWebhookConsumer,
-    provideReceberWebhookUseCase,
-  ],
+  imports: [BoletoPresentationModule, BoletoInfraModule, BoletoAppModule],
 })
 export class BoletoModule {}

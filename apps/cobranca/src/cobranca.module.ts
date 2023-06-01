@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 
-import { CobrancaModule } from '@cobranca/main/cobranca.module';
+import { CobrancaInfraModule } from '@cobranca/main/cobranca-infra.module';
 
 import { InfraModule } from '@infra/infra.module';
 
 import { ProcessarCsvCobrancaEventHandler } from './event-handler';
 
 @Module({
-  imports: [InfraModule, CobrancaModule],
+  imports: [InfraModule, CobrancaInfraModule],
   controllers: [ProcessarCsvCobrancaEventHandler],
 })
 export class ConsumerProcessarCsv {}

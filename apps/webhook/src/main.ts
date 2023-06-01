@@ -9,7 +9,6 @@ import type { EnvironmentVariables } from '@main/config';
 
 import { ConsumerWebhook } from './consumer-webhook.module';
 
-const DEFAULT_PORT = 3002;
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(ConsumerWebhook);
   const configService = app.get(ConfigService<EnvironmentVariables>);
@@ -24,6 +23,5 @@ async function bootstrap(): Promise<void> {
   });
 
   await app.startAllMicroservices();
-  await app.listen(configService.get('CONSUMER_WEBHOOK_PORT') | DEFAULT_PORT);
 }
 bootstrap();
