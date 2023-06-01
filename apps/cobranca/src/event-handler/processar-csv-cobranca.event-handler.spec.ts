@@ -4,11 +4,10 @@ import { Test } from '@nestjs/testing';
 
 import type { IMonitorError } from '@app/contracts';
 
-import type { IProcessarCsvCobranca } from '@cobranca/app/contracts';
-import { GerarCobrancaConsumer } from '@cobranca/app/services/gerar-cobranca.consumer';
-
 import { SentryMonitorError } from '@infra/sentry';
 
+import type { IProcessarCsvCobranca } from '../contracts';
+import { GerarCobrancaConsumer } from '../services';
 import { ProcessarCsvCobrancaEventHandler } from './processar-csv-cobranca.event-handler';
 
 const ctx = {

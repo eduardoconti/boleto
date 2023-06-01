@@ -26,31 +26,31 @@
     "noUnusedParameters": true,
     "paths": {
       "@app/*": [
-        "apps/boleto-api/src/app/*"
+        "apps/api/src/app/*"
       ],
       "@domain/*": [
-        "apps/boleto-api/src/domain/*"
+        "apps/api/src/domain/*"
       ],
       "@main/*": [
-        "apps/boleto-api/src/main/*"
+        "apps/api/src/main/*"
       ],
       "@presentation/*": [
-        "apps/boleto-api/src/presentation/*"
+        "apps/api/src/presentation/*"
       ],
       "@usuario/*": [
-        "apps/boleto-api/src/modules/usuario/*"
+        "apps/api/src/modules/usuario/*"
       ],
       "@auth/*": [
-        "apps/boleto-api/src/modules/auth/*"
+        "apps/api/src/modules/auth/*"
       ],
       "@boleto/*": [
-        "apps/boleto-api/src/modules/boleto/*"
+        "apps/api/src/modules/boleto/*"
       ],
       "@cobranca/*": [
-        "apps/boleto-api/src/modules/cobranca/*"
+        "apps/api/src/modules/cobranca/*"
       ],
       "@domain-core/*": [
-        "apps/boleto-api/src/domain-core/*"
+        "apps/api/src/domain-core/*"
       ],
       "@infra/*": [
         "libs/infra/src/*"

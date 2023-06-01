@@ -7,14 +7,14 @@ WORKDIR /app
 
 RUN ls /app -al
 
-RUN yarn && yarn build boleto-api
+RUN yarn && yarn build api
 
-COPY apps/boleto-api/entrypoint.sh ./entrypoint.sh
+COPY apps/api/entrypoint.sh ./entrypoint.sh
 EXPOSE 3000
 
-RUN yarn --cwd dist/apps/boleto-api
+RUN yarn --cwd dist/apps/api
 
-RUN ls dist/apps/boleto-api -al
+RUN ls dist/apps/api -al
 
 RUN ls /app -al
 

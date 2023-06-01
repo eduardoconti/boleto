@@ -6,15 +6,15 @@ import {
   mockArquivoCobrancaEntity,
   mockArquivoCobrancaEntityProcessado,
 } from '@cobranca/__mocks__/entity';
+import { GerarCobrancaUseCase } from '@cobranca/app/use-cases';
 import type { ICsvCobrancaRepository } from '@cobranca/domain/contracts';
 import type { IGerarCobrancaUseCase } from '@cobranca/domain/use-cases';
 import { CsvCobrancaRepository } from '@cobranca/infra/repositories';
-import { provideGerarCobrancaConsumer } from '@cobranca/main/dependency-injection';
 
 import { ReadFileCsv } from '@infra/csv/csv-reader';
 
 import type { ICsvCobrancaReader, IProcessarCsvCobranca } from '../contracts';
-import { GerarCobrancaUseCase } from '../use-cases';
+import { provideGerarCobrancaConsumer } from '../main/dependency-injection';
 import { GerarCobrancaConsumer } from './gerar-cobranca.consumer';
 
 describe('GerarCobrancaConsumer', () => {

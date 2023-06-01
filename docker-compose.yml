@@ -1,12 +1,12 @@
 version: '3.7'
 
 services:
-  boleto-api:
-    container_name: boleto-api
+  api:
+    container_name: api
     restart: on-failure
     build:
       context: .
-      dockerfile: ./apps/boleto-api/Dockerfile
+      dockerfile: ./apps/api/Dockerfile
     volumes:
       - .:/app
     ports:
@@ -58,7 +58,7 @@ services:
       - ${DB_PORT}:${DB_PORT}
     container_name: postgres
     volumes:
-      - pg-boleto-api-data:/var/lib/postgresql/data
+      - pg-api-data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -76,5 +76,5 @@ services:
       - rabbitmq_data:/var/lib/rabbitmq  
 
 volumes:
-  pg-boleto-api-data:
+  pg-api-data:
   rabbitmq_data:

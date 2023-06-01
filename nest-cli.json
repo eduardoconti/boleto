@@ -1,22 +1,22 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/boleto-api/src",
+  "sourceRoot": "apps/api/src",
   "compilerOptions": {
     "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "apps/boleto-api/tsconfig.app.json"
+    "tsConfigPath": "apps/api/tsconfig.app.json"
   },
   "monorepo": true,
-  "root": "apps/boleto-api",
+  "root": "apps/api",
   "projects": {
-    "boleto-api": {
+    "api": {
       "type": "application",
-      "root": "apps/boleto-api",
+      "root": "apps/api",
       "entryFile": "main",
-      "sourceRoot": "apps/boleto-api/src",
+      "sourceRoot": "apps/api/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/boleto-api/tsconfig.app.json"
+        "tsConfigPath": "apps/api/tsconfig.app.json"
       }
     },
     "cobranca": {
