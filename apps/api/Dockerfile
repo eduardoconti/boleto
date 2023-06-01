@@ -9,7 +9,6 @@ RUN ls /app -al
 
 RUN yarn && yarn build api
 
-COPY apps/api/entrypoint.sh ./entrypoint.sh
 EXPOSE 3000
 
 RUN yarn --cwd dist/apps/api

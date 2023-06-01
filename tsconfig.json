@@ -50,7 +50,7 @@
         "apps/api/src/modules/cobranca/*"
       ],
       "@domain-core/*": [
-        "apps/api/src/domain-core/*"
+        "libs/domain-core/src/*"
       ],
       "@infra/*": [
         "libs/infra/src/*"

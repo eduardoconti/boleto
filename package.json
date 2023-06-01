@@ -138,7 +138,7 @@
       "^@infra/(.*)$": "<rootDir>/libs/infra/src/$1",
       "^@main/(.*)$": "<rootDir>/apps/api/src/main/$1",
       "^@presentation/(.*)$": "<rootDir>/apps/api/src/presentation/$1",
-      "^@domain-core/(.*)$": "<rootDir>/apps/api/src/domain-core/$1",
+      "^@domain-core/(.*)$": "<rootDir>/libs/domain-core/src/$1",
       "^@auth/(.*)$": "<rootDir>/apps/api/src/modules/auth/$1",
       "^@usuario/(.*)$": "<rootDir>/apps/api/src/modules/usuario/$1",
       "^@boleto/(.*)$": "<rootDir>/apps/api/src/modules/boleto/$1",
