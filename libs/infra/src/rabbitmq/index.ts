@@ -1,1 +1,1 @@
-export * from './defaultQueueOptions';
+export * from './default-queue.options';

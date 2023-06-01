@@ -133,7 +133,7 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "moduleNameMapper": {
-      "^@app/(.*)$": "<rootDir>/apps/api/src/app/$1",
+      "^@app/(.*)$": "<rootDir>/libs/app/src/$1",
       "^@domain/(.*)$": "<rootDir>/apps/api/src/domain/$1",
       "^@infra/(.*)$": "<rootDir>/libs/infra/src/$1",
       "^@main/(.*)$": "<rootDir>/apps/api/src/main/$1",

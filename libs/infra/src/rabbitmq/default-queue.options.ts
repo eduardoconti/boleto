@@ -10,6 +10,7 @@ export const rabbitmqDefaultOptions: Pick<RmqOptions, 'options'> = {
     },
     socketOptions: {
       heartbeatIntervalInSeconds: 60,
+      reconnectTimeInSeconds: 5,
     },
   },
 };
