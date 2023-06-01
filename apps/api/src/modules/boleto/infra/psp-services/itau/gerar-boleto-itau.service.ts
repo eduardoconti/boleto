@@ -11,8 +11,8 @@ export class GerarBoletoItauService implements IGerarBoletoComPSP {
   async gerarBoleto(request: GerarBoletoRequest): Promise<GerarBoletoResponse> {
     try {
       await timeoutDelay(fakeDelay);
-      const min = 1000;
-      const max = 100000;
+      const min = 10;
+      const max = 1000000000;
       // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
       return {

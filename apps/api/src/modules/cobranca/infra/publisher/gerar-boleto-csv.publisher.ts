@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import type { ProcessarCsvCobrancaData } from 'apps/cobranca/src/contracts';
-import { catchError, throwError } from 'rxjs';
+import { catchError, firstValueFrom, throwError } from 'rxjs';
 
 import type { IPublisherCsvCobranca } from '@cobranca/app/contracts';
 
@@ -13,14 +13,13 @@ export class GerarCobrancaPublisher implements IPublisherCsvCobranca {
 
   async publish(data: ProcessarCsvCobrancaData): Promise<void> {
     try {
-      await this.csvQueueService
-        .emit('PROCESSAR_CSV', data)
-        .pipe(
+      await firstValueFrom(
+        this.csvQueueService.emit('PROCESSAR_CSV', data).pipe(
           catchError((exception: Error) => {
-            return throwError(new Error(exception.message));
+            return throwError(() => new Error(exception.message));
           }),
-        )
-        .toPromise();
+        ),
+      );
     } catch (error) {
       throw error;
     }

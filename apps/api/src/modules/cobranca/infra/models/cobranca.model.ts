@@ -20,6 +20,7 @@ export class CobrancaModel extends Model<number> {
   data_inclusao!: Date;
   data_alteracao!: Date;
   boleto?: BoletoModel[];
+
   static fromEntity(entity: CobrancaEntity): CobrancaModel {
     return {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
