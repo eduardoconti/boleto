@@ -11,7 +11,6 @@ import {
   provideCobrancaRepository,
   provideCsvCobrancaClientProxy,
   provideCsvCobrancaRepository,
-  provideGerarCobrancaConsumer,
 } from './dependency-injection';
 
 @Module({
@@ -24,13 +23,11 @@ import {
     provideCobrancaRepository,
     provideCsvCobrancaRepository,
     GerarCobrancaPublisher,
-    provideGerarCobrancaConsumer,
     provideCsvCobrancaClientProxy,
   ],
   exports: [
     provideCobrancaRepository,
     provideCsvCobrancaRepository,
-    provideGerarCobrancaConsumer,
     GerarCobrancaPublisher,
     InfraModule,
   ],

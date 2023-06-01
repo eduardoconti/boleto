@@ -7,7 +7,7 @@ import { rabbitmqDefaultOptions } from '@infra/rabbitmq';
 
 import type { EnvironmentVariables } from '@main/config';
 
-import { ConsumerProcessarCsv } from './cobranca.module';
+import { ConsumerProcessarCsv } from './main/consumer-csv.module';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(ConsumerProcessarCsv);

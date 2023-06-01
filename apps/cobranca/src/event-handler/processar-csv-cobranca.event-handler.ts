@@ -7,13 +7,10 @@ import { Ctx, EventPattern, Payload, RmqContext } from '@nestjs/microservices';
 
 import { IMonitorError } from '@app/contracts';
 
-import {
-  IProcessarCsvCobranca,
-  ProcessarCsvCobrancaData,
-} from '@cobranca/app/contracts';
-import { GerarCobrancaConsumer } from '@cobranca/app/services/gerar-cobranca.consumer';
-
 import { SentryMonitorError } from '@infra/sentry';
+
+import { IProcessarCsvCobranca, ProcessarCsvCobrancaData } from '../contracts';
+import { GerarCobrancaConsumer } from '../services/gerar-cobranca.consumer';
 
 @Controller()
 export class ProcessarCsvCobrancaEventHandler {
