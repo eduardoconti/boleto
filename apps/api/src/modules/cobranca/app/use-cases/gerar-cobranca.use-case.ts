@@ -36,7 +36,6 @@ export class GerarCobrancaUseCase implements IGerarCobrancaUseCase {
         await this.cobrancaRepository.update(cobrancaSaved);
         throw e;
       });
-
     const boleto = BoletoEntity.create({
       dataVencimento: request.dataVencimento,
       idCobranca: cobrancaSaved.id.value,

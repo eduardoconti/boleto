@@ -8,7 +8,11 @@ import type { IGerarBoletoComPSP } from '@boleto/app/contracts';
 import { GerarBoletoItauService } from '@boleto/infra/psp-services/itau/gerar-boleto-itau.service';
 
 import { mockGerarCobrancaUseCaseInput } from '@cobranca/__mocks__/dto';
-import { mockCobrancaEntityPendente } from '@cobranca/__mocks__/entity';
+import {
+  mockCobrancaEntityFalha,
+  mockCobrancaEntityPendente,
+  mockCobrancaEntityPendenteSemBoleto,
+} from '@cobranca/__mocks__/entity';
 import type { ICobrancaRepository } from '@cobranca/domain/contracts/cobranca-repository';
 import type { IGerarCobrancaUseCase } from '@cobranca/domain/use-cases';
 import { CobrancaRepository } from '@cobranca/infra/repositories';
@@ -81,5 +85,25 @@ describe('GerarCobrancaUseCase', () => {
       mockGerarCobrancaUseCaseInput,
     );
     expect(result).toBeDefined();
+  });
+
+  it('should throw error and mark charge as FALHA_GERAR_BOLETO', async () => {
+    jest
+      .spyOn(csvCobrancaRepository, 'save')
+      .mockResolvedValue(mockCobrancaEntityPendenteSemBoleto);
+
+    jest.spyOn(pspService, 'gerarBoleto').mockRejectedValue(new Error(`any`));
+
+    jest
+      .spyOn(csvCobrancaRepository, 'update')
+      .mockResolvedValue(mockCobrancaEntityFalha);
+
+    await expect(
+      gerarCobrancaUseCase.execute(mockGerarCobrancaUseCaseInput),
+    ).rejects.toThrowError(Error);
+
+    expect(csvCobrancaRepository.update).toBeCalledWith(
+      mockCobrancaEntityFalha,
+    );
   });
 });
