@@ -1,10 +1,12 @@
 version: '3.7'
 
 services:
-  boleto-api:
-    container_name: boleto-api
+  api:
+    container_name: api
     restart: on-failure
-    build: .
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
     volumes:
       - .:/app
     ports:
@@ -15,6 +17,40 @@ services:
     depends_on:
       - postgres
       - rabbitmq
+    
+  consumer-csv:
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: ./apps/cobranca/Dockerfile
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    command: yarn start:consumer-csv:dev
+    depends_on:
+      - postgres
+      - rabbitmq
+    deploy:
+      mode: replicated
+      replicas: 3
+
+  consumer-webhook:
+    container_name: consumer-webhook
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: ./apps/webhook/Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - ${CONSUMER_WEBHOOK_PORT}:${CONSUMER_WEBHOOK_PORT}
+    env_file:
+      - .env
+    command: yarn start:consumer-webhook:dev
+    depends_on:
+      - postgres
+      - rabbitmq
 
   postgres:
     image: postgres:alpine
@@ -22,7 +58,7 @@ services:
       - ${DB_PORT}:${DB_PORT}
     container_name: postgres
     volumes:
-      - pg-boleto-api-data:/var/lib/postgresql/data
+      - pg-api-data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -40,5 +76,5 @@ services:
       - rabbitmq_data:/var/lib/rabbitmq  
 
 volumes:
-  pg-boleto-api-data:
+  pg-api-data:
   rabbitmq_data:

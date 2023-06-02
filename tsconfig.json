@@ -26,37 +26,41 @@
     "noUnusedParameters": true,
     "paths": {
       "@app/*": [
-        "src/app/*"
+        "libs/app/src/*"
       ],
       "@domain/*": [
-        "src/domain/*"
-      ],
-      "@infra/*": [
-        "src/infra/*"
+        "apps/api/src/domain/*"
       ],
       "@main/*": [
-        "src/main/*"
+        "apps/api/src/main/*"
       ],
       "@presentation/*": [
-        "src/presentation/*"
+        "apps/api/src/presentation/*"
       ],
       "@usuario/*": [
-        "src/modules/usuario/*"
+        "apps/api/src/modules/usuario/*"
       ],
       "@auth/*": [
-        "src/modules/auth/*"
+        "apps/api/src/modules/auth/*"
       ],
       "@boleto/*": [
-        "src/modules/boleto/*"
+        "apps/api/src/modules/boleto/*"
       ],
       "@cobranca/*": [
-        "src/modules/cobranca/*"
+        "apps/api/src/modules/cobranca/*"
       ],
       "@domain-core/*": [
-        "src/domain-core/*"
+        "libs/domain-core/src/*"
       ],
-    },
+      "@infra/*": [
+        "libs/infra/src/*"
+      ]
+    }
   },
-  "include": ["src/**/*", "test/**/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    "apps/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
